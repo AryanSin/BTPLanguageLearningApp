@@ -25,22 +25,39 @@ class _HomeScreenState extends State<HomeScreen> {
           //  crossAxisAlign ment: CrossAxisAlignment.center,
           children: [
             DailyLoginMini(),
+            TextWithBackColor(
+                text: "Suggested", color: Color.fromARGB(255, 13, 17, 21)),
+            const SizedBox(height: 20),
             const Align(
               alignment: Alignment.center,
               child: WordsGroup(
-                height: 180,
+                height: 184.41,
                 width: 280,
                 unlocked: true,
                 liked: true,
                 title: "Word Group",
-                primaryDetails: "Primary Details",
-                secondaryDetails: "Secondary \n Details \n for all",
+                Details: "Primary Details\nSecondary Details",
                 completionPercentage: 90,
               ),
             ),
             const SizedBox(height: 20),
+            const Align(
+              alignment: Alignment.center,
+              child: WordsGroup(
+                height: 184.41,
+                width: 280,
+                unlocked: true,
+                liked: true,
+                title: "Word Group",
+                Details: "Primary Details\nSecondary Details",
+                completionPercentage: 90,
+              ),
+            ),
+            const SizedBox(height: 30),
             TextWithBackColor(
-                text: "Suggested", color: Color.fromARGB(255, 13, 17, 21)),
+                text: "Word Of The Day",
+                color: Color.fromARGB(255, 13, 17, 21)),
+            const SizedBox(height: 20),
             IconText(
               text: "WORD",
               child: Icon(
@@ -50,16 +67,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            IconText(
-              height: getProportionHeight(70),
-              text: "Word Breakdown",
-              textStyle: TextStyle(
-                  fontSize: getProportionHeight(24),
-                  color: const Color.fromARGB(255, 255, 255, 255)),
-              child: Icon(Icons.mic_rounded,
-                  size: getProportionHeight(60),
-                  color: const Color.fromARGB(255, 164, 113, 246)),
-            ),
+            // IconText(
+            //   height: getProportionHeight(70),
+            //   text: "Word Breakdown",
+            //   textStyle: TextStyle(
+            //       fontSize: getProportionHeight(24),
+            //       color: const Color.fromARGB(255, 255, 255, 255)),
+            //   child: Icon(Icons.mic_rounded,
+            //       size: getProportionHeight(60),
+            //       color: const Color.fromARGB(255, 164, 113, 246)),
+            // ),
           ],
         ),
       ),

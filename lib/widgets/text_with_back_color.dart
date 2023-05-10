@@ -49,7 +49,7 @@ class TextWithBackColor extends StatelessWidget {
                 style: textStyle ??
                     TextStyle(
                       fontSize: getProportionHeight(10.8642),
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.w400,
                     ),
               ),
