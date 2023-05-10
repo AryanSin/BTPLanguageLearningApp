@@ -1,0 +1,14 @@
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/btp
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/icudtl.dat
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/assets/icons/AppIcons.ttf
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/logo.png
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/dogSitting.jpg
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/version.json
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/aryan/Desktop/coding/net/btp/btp/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
