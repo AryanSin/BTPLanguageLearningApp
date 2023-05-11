@@ -348,9 +348,11 @@ class _WordsGroupState extends State<WordsGroup> {
 
 class SecondScreen extends StatefulWidget {
   final Audios? audioFile;
+  double score;
 
   // receive data from the FirstScreen as a parameter
-  SecondScreen({Key? key, required this.audioFile}) : super(key: key);
+  SecondScreen({Key? key, required this.audioFile, this.score = 40})
+      : super(key: key);
 
   @override
   State<SecondScreen> createState() => _SecondScreenState();
@@ -365,67 +367,71 @@ class _SecondScreenState extends State<SecondScreen> {
   // bool shopPause = false;
 
   // AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  // late _score = widget.score;
   late AssetsAudioPlayer _assetsAudioPlayer;
   final List<StreamSubscription> _subscriptions = [];
 
-  final audios = <Audio>[
-    //Audio.network(
-    //  'https://d14nt81hc5bide.cloudfront.net/U7ZRzzHfk8pvmW28sziKKPzK',
-    //  metas: Metas(
-    //    id: 'Invalid',
-    //    title: 'Invalid',
-    //    artist: 'Florent Champigny',
-    //    album: 'OnlineAlbum',
-    //    image: MetasImage.network(
-    //        'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-    //  ),
-    //),
-    Audio.file(
-      'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
-      metas: Metas(
-        id: 'Online',
-        title: 'Online',
-        artist: 'Florent Champigny',
-        album: 'OnlineAlbum',
-        // image: MetasImage.network('https://www.google.com')
-        image: MetasImage.network(
-            'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-      ),
-    ),
-  ];
+  // final audios = <Audio>[
+  //Audio.network(
+  //  'https://d14nt81hc5bide.cloudfront.net/U7ZRzzHfk8pvmW28sziKKPzK',
+  //  metas: Metas(
+  //    id: 'Invalid',
+  //    title: 'Invalid',
+  //    artist: 'Florent Champigny',
+  //    album: 'OnlineAlbum',
+  //    image: MetasImage.network(
+  //        'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+  //  ),
+  //),
+
+  // Audio.network(
+  //   'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
+  //   metas: Metas(
+  //     id: 'Online',
+  //     title: 'Online',
+  //     artist: 'Florent Champigny',
+  //     album: 'OnlineAlbum',
+  //     // image: MetasImage.network('https://www.google.com')
+  //     image: MetasImage.network(
+  //         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+  //   ),
+  // Do the above thing for a local file audio
+  // Audio.file(
+  //   'assets/audioFiles/anju_Phoneme_L4_5-2.wav',
+  //   metas: Metas(
+  //     id: 'Local',
+  //     title: "widget.audioFile!.word",
+  //     artist: 'Florent Champigny',
+  //     album: 'LocalAlbum',
+  //     // image: MetasImage.network('https://www.google.com')
+  //     image: MetasImage.network(
+  //         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+  //   ),
+  // ),
+  // ];
 
   @override
   void initState() {
-    // print(widget.audioFile?.audioName);
-    // super.initState();
-    // iconController = AnimationController(
-    //     vsync: this, duration: Duration(milliseconds: 1000));
-    // audioPlayer.open(
-    //     Audio('assets/audioFiles/${widget.audioFile?.audioName}.wav'),
-    //     autoStart: false,
-    //     showNotification: true);
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
-    //_subscriptions.add(_assetsAudioPlayer.playlistFinished.listen((data) {
-    //  print('finished : $data');
-    //}));
-    //openPlayer();
-    _subscriptions.add(_assetsAudioPlayer.playlistAudioFinished.listen((data) {
-      print('playlistAudioFinished : $data');
-    }));
-    _subscriptions.add(_assetsAudioPlayer.audioSessionId.listen((sessionId) {
-      print('audioSessionId : $sessionId');
-    }));
+    // _subscriptions.add(_assetsAudioPlayer.playlistAudioFinished.listen((data) {
+    //   print('playlistAudioFinished : $data');
+    // }));
+    // _subscriptions.add(_assetsAudioPlayer.audioSessionId.listen((sessionId) {
+    //   print('audioSessionId : $sessionId');
+    // }));
 
-    openPlayer();
+    // openPlayer();
   }
 
-  void openPlayer() async {
-    await _assetsAudioPlayer.open(
-      Playlist(audios: audios, startIndex: 0),
-      showNotification: true,
-      autoStart: false,
-    );
-  }
+  // void openPlayer() async {
+  //   await _assetsAudioPlayer.open(
+  //     Playlist(audios: audios, startIndex: 0),
+  //     showNotification: true,
+  //     autoStart: true,
+  //   );
+  // }
+  // The above code shows PlatformException(OPEN, null, null, null)
+  // The reason is that the audio file is not in the assets folder
 
   @override
   Widget build(BuildContext context) {
@@ -440,19 +446,21 @@ class _SecondScreenState extends State<SecondScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 30),
+            SizedBox(height: getProportionHeight(36)),
+            TextWithBackColor(
+              text: "Press and hold to Record",
+              color: Color.fromARGB(255, 13, 17, 21),
+              width: 165,
+              height: 40,
+              textStyle: TextStyle(fontSize: 13, color: Colors.white),
+            ),
             Align(
               alignment: Alignment.center,
               child: IconText(
                 onTap: () {
-                  AssetsAudioPlayer.newPlayer().open(
-                    Audio("assets/audioFiles/anju_Phoneme_L4_5-2.wav"),
-                    autoStart: true,
-                    showNotification: true,
-                  );
-                  // AssetsAudioPlayer.playAndForget(
-                  //     Audio('assets/audioFiles/anju_Phoneme_L4_5-2.mp3'),
-                  //     volume: 100);
+                  // _assetsAudioPlayer.open(
+                  //   Audio("assets/audioFiles/anju_Phoneme_L4_5-2.wav"),
+                  // );
                 },
                 text: widget.audioFile!.word,
                 child: Icon(
@@ -472,63 +480,88 @@ class _SecondScreenState extends State<SecondScreen> {
             SizedBox(
               height: getProportionHeight(44),
             ),
+            Align(
+              alignment: Alignment.center,
+              child: IconText(
+                height: 70,
+                text: widget.audioFile!.syllable,
+                onTap: () {
+                  _assetsAudioPlayer.open(
+                    Audio(
+                        "assets/audioFiles/${widget.audioFile?.audioName}.wav"),
+                  );
+                },
+                child: Icon(
+                  Icons.play_circle_outline_rounded,
+                  size: getProportionHeight(60),
+                  color: Color.fromARGB(255, 116, 69, 255),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: getProportionHeight(70),
+            ),
             Container(
               width: getProportionWidth(330),
-              height: getProportionHeight(70),
-              // width: ,
+              height: getProportionHeight(95),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 17, 21),
-                borderRadius: BorderRadius.circular(getProportionHeight(10)),
+                borderRadius: BorderRadius.circular(getProportionHeight(4.35)),
+                color: Color.fromARGB(255, 164, 113, 246),
               ),
-              // child: Row(
-              //   // mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Align(
-              //       alignment: Alignment.centerLeft,
-              //       child: GestureDetector(
-              //         onTap: () => () {
-              //           AnimateIcon();
-              //         },
-              //         child: AnimatedIcon(
-              //           icon: AnimatedIcons.play_pause,
-              //           progress: iconController,
-              //           size: 50,
-              //           color: Colors.black,
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: getProportionWidth(200),
-              //       child: Center(
-              //         child: AutoSizeText(
-              //           widget.audioFile!.syllable,
-              //           style:
-              //               const TextStyle(fontSize: 40, color: Colors.white),
-              //           maxLines: 1,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: getProportionWidth(66),
+                    top: getProportionHeight(10),
+                    width: getProportionWidth(200),
+                    height: getProportionHeight(30),
+                    child: AutoSizeText(
+                      "Score: ${widget.score}%",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: getProportionHeight(24),
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  for (var i = 0; i < 5; i++)
+                    (i < widget.score / 20)
+                        ? Positioned(
+                            left: getProportionWidth(10) +
+                                i * getProportionWidth(64),
+                            top: getProportionHeight(40),
+                            width: getProportionWidth(50),
+                            height: getProportionHeight(50),
+                            child: Image.asset(
+                              "assets/images/1291961 4clear.png",
+                              // fit: BoxFit.cover,
+                              height: getProportionHeight(60),
+                              width: getProportionWidth(60),
+                            ),
+                          )
+                        : Positioned(
+                            left: getProportionWidth(10) +
+                                i * getProportionWidth(64),
+                            top: getProportionHeight(40),
+                            width: getProportionWidth(50),
+                            height: getProportionHeight(50),
+                            child: Image.asset(
+                              "assets/images/1291961 4clear.png",
+                              height: getProportionHeight(50),
+                              width: getProportionWidth(50),
+                              color: Colors.white.withOpacity(0.15),
+                              colorBlendMode: BlendMode.modulate,
+                            ),
+                          ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
-  // void AnimateIcon() {
-  //   setState(() {
-  //     isAnimated = !isAnimated;
-  //     if (isAnimated) {
-  //       iconController.forward();
-  //       audioPlayer.play();
-  //     } else {
-  //       iconController.reverse();
-  //       audioPlayer.pause();
-  //     }
-  //   });
-  // }
 
   @override
   void dispose() {

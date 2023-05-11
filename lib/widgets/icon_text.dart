@@ -30,8 +30,8 @@ class IconText extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Container(
-        width: width ?? getProportionWidth(330),
-        height: height ?? getProportionHeight(80),
+        width: getProportionWidth(width ?? 330),
+        height: getProportionHeight(height ?? 80),
         // width: ,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 13, 17, 21),
@@ -43,8 +43,8 @@ class IconText extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: InkWell(
-                onTap: () => onTap,
                 child: child,
+                onTap: onTap as void Function()?,
               ),
             ),
             SizedBox(
@@ -53,7 +53,9 @@ class IconText extends StatelessWidget {
                 child: AutoSizeText(
                   text,
                   style: textStyle ??
-                      const TextStyle(fontSize: 40, color: Colors.white),
+                      TextStyle(
+                          fontSize: getProportionHeight(40),
+                          color: Colors.white),
                   maxLines: 1,
                 ),
               ),
