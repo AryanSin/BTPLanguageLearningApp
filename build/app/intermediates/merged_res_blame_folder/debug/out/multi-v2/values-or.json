@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.btp.app-mergeDebugResources-9:/values-or/values-or.xml",
+            "outputFile": "com.example.btp.app-mergeDebugResources-18:/values-or/values-or.xml",
             "map": [
                 {
-                    "source": "/home/aryan/.gradle/caches/transforms-3/4ca28c4a71705f8a687c69dda140a277/transformed/core-1.6.0/res/values-or/values-or.xml",
+                    "source": "/home/aryan/.gradle/caches/transforms-3/74ce2690f7529852b8321388684fcbb6/transformed/core-1.7.0/res/values-or/values-or.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

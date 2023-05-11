@@ -15,7 +15,7 @@ class IconText extends StatelessWidget {
       : super(key: key);
   final Widget child;
   final String text;
-  VoidCallbackAction? onTap;
+  Function? onTap;
   final TextStyle? textStyle;
   final double? width;
   final double? height;

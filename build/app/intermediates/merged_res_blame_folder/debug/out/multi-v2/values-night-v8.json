@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.btp.app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.btp.app-mergeDebugResources-18:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "/home/aryan/Desktop/coding/net/BTPLanguageLearningApp/android/app/src/main/res/values-night/styles.xml",

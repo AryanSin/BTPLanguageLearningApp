@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+// import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btp/configs/size.dart';
 import 'package:btp/controllers/converter.dart';
@@ -362,18 +365,67 @@ class _SecondScreenState extends State<SecondScreen> {
   // bool shopPause = false;
 
   // AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  late AssetsAudioPlayer _assetsAudioPlayer;
+  final List<StreamSubscription> _subscriptions = [];
 
-  // @override
-  // void initState() {
-  //   print(widget.audioFile?.audioName);
-  //   super.initState();
-  //   iconController = AnimationController(
-  //       vsync: this, duration: Duration(milliseconds: 1000));
-  //   audioPlayer.open(
-  //       Audio('assets/audioFiles/${widget.audioFile?.audioName}.wav'),
-  //       autoStart: false,
-  //       showNotification: true);
-  // }
+  final audios = <Audio>[
+    //Audio.network(
+    //  'https://d14nt81hc5bide.cloudfront.net/U7ZRzzHfk8pvmW28sziKKPzK',
+    //  metas: Metas(
+    //    id: 'Invalid',
+    //    title: 'Invalid',
+    //    artist: 'Florent Champigny',
+    //    album: 'OnlineAlbum',
+    //    image: MetasImage.network(
+    //        'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+    //  ),
+    //),
+    Audio.file(
+      'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
+      metas: Metas(
+        id: 'Online',
+        title: 'Online',
+        artist: 'Florent Champigny',
+        album: 'OnlineAlbum',
+        // image: MetasImage.network('https://www.google.com')
+        image: MetasImage.network(
+            'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+      ),
+    ),
+  ];
+
+  @override
+  void initState() {
+    // print(widget.audioFile?.audioName);
+    // super.initState();
+    // iconController = AnimationController(
+    //     vsync: this, duration: Duration(milliseconds: 1000));
+    // audioPlayer.open(
+    //     Audio('assets/audioFiles/${widget.audioFile?.audioName}.wav'),
+    //     autoStart: false,
+    //     showNotification: true);
+    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
+    //_subscriptions.add(_assetsAudioPlayer.playlistFinished.listen((data) {
+    //  print('finished : $data');
+    //}));
+    //openPlayer();
+    _subscriptions.add(_assetsAudioPlayer.playlistAudioFinished.listen((data) {
+      print('playlistAudioFinished : $data');
+    }));
+    _subscriptions.add(_assetsAudioPlayer.audioSessionId.listen((sessionId) {
+      print('audioSessionId : $sessionId');
+    }));
+
+    openPlayer();
+  }
+
+  void openPlayer() async {
+    await _assetsAudioPlayer.open(
+      Playlist(audios: audios, startIndex: 0),
+      showNotification: true,
+      autoStart: false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -392,12 +444,22 @@ class _SecondScreenState extends State<SecondScreen> {
             Align(
               alignment: Alignment.center,
               child: IconText(
+                onTap: () {
+                  AssetsAudioPlayer.newPlayer().open(
+                    Audio("assets/audioFiles/anju_Phoneme_L4_5-2.wav"),
+                    autoStart: true,
+                    showNotification: true,
+                  );
+                  // AssetsAudioPlayer.playAndForget(
+                  //     Audio('assets/audioFiles/anju_Phoneme_L4_5-2.mp3'),
+                  //     volume: 100);
+                },
+                text: widget.audioFile!.word,
                 child: Icon(
                   Icons.mic_rounded,
                   size: getProportionHeight(60),
                   color: Color.fromARGB(255, 116, 69, 255),
                 ),
-                text: widget.audioFile!.word,
               ),
             ),
             SizedBox(height: getProportionHeight(21.69)),
@@ -468,13 +530,14 @@ class _SecondScreenState extends State<SecondScreen> {
   //   });
   // }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   iconController.dispose();
-  //   audioPlayer.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // iconController.dispose();
+    // audioPlayer.dispose();
+    _assetsAudioPlayer.dispose();
+    super.dispose();
+  }
 }
 
 
