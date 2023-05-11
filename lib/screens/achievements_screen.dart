@@ -11,7 +11,7 @@ class AchievementsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color.fromARGB(255, 60, 1, 50),
+      backgroundColor: const Color.fromARGB(255, 11, 10, 54),
     );
   }
 }

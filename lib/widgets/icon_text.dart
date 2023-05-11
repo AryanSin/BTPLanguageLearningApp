@@ -4,7 +4,7 @@ import 'package:btp/configs/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class IconText extends StatelessWidget {
-  const IconText(
+  IconText(
       {Key? key,
       required this.child,
       required this.text,
@@ -15,7 +15,7 @@ class IconText extends StatelessWidget {
       : super(key: key);
   final Widget child;
   final String text;
-  final VoidCallback? onTap;
+  VoidCallbackAction? onTap;
   final TextStyle? textStyle;
   final double? width;
   final double? height;
@@ -35,7 +35,7 @@ class IconText extends StatelessWidget {
         // width: ,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 13, 17, 21),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(getProportionHeight(10)),
         ),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +43,7 @@ class IconText extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: InkWell(
-                onTap: onTap,
+                onTap: () => onTap,
                 child: child,
               ),
             ),

@@ -1,28 +1,33 @@
+import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btp/configs/size.dart';
+import 'package:btp/controllers/converter.dart';
 import 'package:btp/widgets/button.dart';
+import 'package:btp/widgets/icon_text.dart';
+import 'package:btp/widgets/text_with_back_color.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class WordsGroup extends StatefulWidget {
-  final String title;
   final String Details;
   final double completionPercentage;
   final double height;
   final double width;
   final bool liked;
   final bool unlocked;
+  final Audios? audioFile;
 
   const WordsGroup({
     Key? key,
-    this.title = "title",
     this.Details = "Details\nSecondary titles",
     this.completionPercentage = 50,
     this.liked = false,
     this.unlocked = false,
     this.height = 184.41,
     this.width = 280,
+    required this.audioFile,
   }) : super(key: key);
 
   @override
@@ -56,7 +61,7 @@ class _WordsGroupState extends State<WordsGroup> {
             height: getProportionHeight(24),
             child: Center(
               child: AutoSizeText(
-                widget.title,
+                widget.audioFile?.word ?? "",
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 style: TextStyle(
@@ -142,13 +147,28 @@ class _WordsGroupState extends State<WordsGroup> {
               ),
               child: Align(
                 alignment: Alignment.center,
-                child: Text(
-                  unlocked ? "Attempt" : "Unlock",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: getProportionHeight(14.0),
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500),
+                child: InkWell(
+                  onTap: () {
+                    //  write an if else condition
+                    // if unlocked then navigate to the page
+                    // else show a dialog box
+
+                    if (unlocked) {
+                      _sendDataToSecondScreen(context);
+                    } else {
+                      setState(() {
+                        unlocked = true;
+                      });
+                    }
+                  },
+                  child: Text(
+                    unlocked ? "Attempt" : "Unlock",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: getProportionHeight(14.0),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
             ),
@@ -310,4 +330,163 @@ class _WordsGroupState extends State<WordsGroup> {
       ),
     );
   }
+
+  void _sendDataToSecondScreen(BuildContext context) {
+    Audios? audio = widget.audioFile;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecondScreen(
+            audioFile: audio,
+          ),
+        ));
+  }
 }
+
+class SecondScreen extends StatefulWidget {
+  final Audios? audioFile;
+
+  // receive data from the FirstScreen as a parameter
+  SecondScreen({Key? key, required this.audioFile}) : super(key: key);
+
+  @override
+  State<SecondScreen> createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  // with SingleTickerProviderStateMixin {
+  // late AnimationController iconController;
+
+  // bool isAnimated = false;
+  // bool showPlay = true;
+  // bool shopPause = false;
+
+  // AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+
+  // @override
+  // void initState() {
+  //   print(widget.audioFile?.audioName);
+  //   super.initState();
+  //   iconController = AnimationController(
+  //       vsync: this, duration: Duration(milliseconds: 1000));
+  //   audioPlayer.open(
+  //       Audio('assets/audioFiles/${widget.audioFile?.audioName}.wav'),
+  //       autoStart: false,
+  //       showNotification: true);
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 14, 18, 22),
+        title: Text(widget.audioFile!.word),
+      ),
+      backgroundColor: Color.fromARGB(255, 11, 10, 54),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 30),
+            Align(
+              alignment: Alignment.center,
+              child: IconText(
+                child: Icon(
+                  Icons.mic_rounded,
+                  size: getProportionHeight(60),
+                  color: Color.fromARGB(255, 116, 69, 255),
+                ),
+                text: widget.audioFile!.word,
+              ),
+            ),
+            SizedBox(height: getProportionHeight(21.69)),
+            TextWithBackColor(
+              text: "Submit",
+              color: Color.fromARGB(255, 164, 113, 246),
+              width: 150,
+              height: 36,
+            ),
+            SizedBox(
+              height: getProportionHeight(44),
+            ),
+            Container(
+              width: getProportionWidth(330),
+              height: getProportionHeight(70),
+              // width: ,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 13, 17, 21),
+                borderRadius: BorderRadius.circular(getProportionHeight(10)),
+              ),
+              // child: Row(
+              //   // mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Align(
+              //       alignment: Alignment.centerLeft,
+              //       child: GestureDetector(
+              //         onTap: () => () {
+              //           AnimateIcon();
+              //         },
+              //         child: AnimatedIcon(
+              //           icon: AnimatedIcons.play_pause,
+              //           progress: iconController,
+              //           size: 50,
+              //           color: Colors.black,
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: getProportionWidth(200),
+              //       child: Center(
+              //         child: AutoSizeText(
+              //           widget.audioFile!.syllable,
+              //           style:
+              //               const TextStyle(fontSize: 40, color: Colors.white),
+              //           maxLines: 1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // void AnimateIcon() {
+  //   setState(() {
+  //     isAnimated = !isAnimated;
+  //     if (isAnimated) {
+  //       iconController.forward();
+  //       audioPlayer.play();
+  //     } else {
+  //       iconController.reverse();
+  //       audioPlayer.pause();
+  //     }
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   iconController.dispose();
+  //   audioPlayer.dispose();
+  //   super.dispose();
+  // }
+}
+
+
+/*
+IconText(
+  height: 70,
+  child: Icon(
+    Icons.play_circle_outline_rounded,
+    size: getProportionHeight(60),
+    color: Color.fromARGB(255, 116, 69, 255),
+  ),
+  text: widget.audioFile!.syllable,
+  onTap: audioPlayer.play(),
+),
+*/

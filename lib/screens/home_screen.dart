@@ -1,4 +1,5 @@
 import 'package:btp/configs/size.dart';
+import 'package:btp/controllers/dataReader.dart';
 import 'package:btp/widgets/daily_login_mini.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/text_with_back_color.dart';
@@ -28,27 +29,27 @@ class _HomeScreenState extends State<HomeScreen> {
             TextWithBackColor(
                 text: "Suggested", color: Color.fromARGB(255, 13, 17, 21)),
             const SizedBox(height: 20),
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: WordsGroup(
                 height: 184.41,
                 width: 280,
                 unlocked: true,
                 liked: true,
-                title: "Word Group",
+                audioFile: controller2.audios?[0],
                 Details: "Primary Details\nSecondary Details",
                 completionPercentage: 90,
               ),
             ),
             const SizedBox(height: 20),
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: WordsGroup(
                 height: 184.41,
                 width: 280,
                 unlocked: true,
                 liked: true,
-                title: "Word Group",
+                audioFile: controller2.audios?[1],
                 Details: "Primary Details\nSecondary Details",
                 completionPercentage: 90,
               ),
