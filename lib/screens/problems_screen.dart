@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:btp/controllers/dataReader.dart';
+import 'package:rive/rive.dart';
 
 class ProblemsScreen extends StatefulWidget {
   const ProblemsScreen({Key? key}) : super(key: key);
@@ -40,6 +41,11 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              height: getProportionHeight(200),
+              child: RiveAnimation.asset('assets/anim/dog_back_side.riv',
+                  fit: BoxFit.cover),
+            ),
             const SizedBox(height: 30),
             // GridView.builder(
             //   shrinkWrap: true,
