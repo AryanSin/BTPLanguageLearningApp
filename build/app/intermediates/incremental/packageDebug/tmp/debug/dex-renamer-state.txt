@@ -1,7 +1,10 @@
-#Fri May 12 11:46:01 IST 2023
-base.1=/home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/app/intermediates/dex/debug/mergeDexDebug/classes2.dex
-path.1=classes2.dex
+#Fri Sep 15 23:27:33 IST 2023
 base.0=/home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.1=classes2.dex
-renamed.0=classes.dex
+base.1=/home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/app/intermediates/dex/debug/mergeDexDebug/classes2.dex
+base.2=/home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/app/intermediates/dex/debug/mergeDexDebug/classes3.dex
 path.0=classes.dex
+path.1=classes2.dex
+path.2=classes3.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex
+renamed.2=classes3.dex

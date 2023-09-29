@@ -28,13 +28,13 @@
 20    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 21    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 22    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-22-->[com.google.android.exoplayer:exoplayer-core:2.18.1] /home/aryan/.gradle/caches/transforms-3/eed6c775712772b7adb51f80912e1f44/transformed/jetified-exoplayer-core-2.18.1/AndroidManifest.xml:24:5-79
-22-->[com.google.android.exoplayer:exoplayer-core:2.18.1] /home/aryan/.gradle/caches/transforms-3/eed6c775712772b7adb51f80912e1f44/transformed/jetified-exoplayer-core-2.18.1/AndroidManifest.xml:24:22-76
+22-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:26:5-79
+22-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:26:22-76
 23
 24    <application
 25        android:name="io.flutter.app.FlutterMultiDexApplication"
 26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-26-->[androidx.core:core:1.7.0] /home/aryan/.gradle/caches/transforms-3/74ce2690f7529852b8321388684fcbb6/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+26-->[androidx.core:core:1.7.0] /home/aryan/.gradle/caches/transforms-3/b89add5e491ba50ddb9ab252333ed814/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
 27        android:debuggable="true"
 28        android:icon="@mipmap/ic_launcher"
 29        android:label="btp" >
@@ -71,54 +71,182 @@
 60            android:name="flutterEmbedding"
 61            android:value="2" />
 62
-63        <receiver
-63-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-16:39
-64            android:name="com.github.florent37.assets_audio_player.notification.NotificationActionReceiver"
-64-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-108
-65            android:exported="true" />
-65-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-36
-66        <receiver
-66-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:17:9-23:20
-67            android:name="com.github.florent37.assets_audio_player.notification.CustomMediaButtonReceiver"
-67-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-107
-68            android:exported="true" >
-68-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-36
-69            <intent-filter>
-69-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-22:29
-70                <action android:name="android.intent.action.MEDIA_BUTTON" />
-70-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:21:17-77
-70-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:21:25-74
-71            </intent-filter>
-72        </receiver>
-73
-74        <service
-74-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:25:9-35:19
-75            android:name="com.github.florent37.assets_audio_player.notification.NotificationService"
-75-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:26:13-101
-76            android:enabled="true"
-76-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:27:13-35
-77            android:exported="true" >
-77-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:28:13-36
-78
-79            <!--
-80            <intent-filter>
-81                <action android:name="android.intent.action.MEDIA_BUTTON" />
-82            </intent-filter>
-83            -->
-84        </service>
-85
-86        <uses-library
-86-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
-87            android:name="androidx.window.extensions"
-87-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
-88            android:required="false" />
-88-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
-89        <uses-library
-89-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
-90            android:name="androidx.window.sidecar"
-90-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
-91            android:required="false" />
-91-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
-92    </application>
+63        <service
+63-->[:firebase_auth] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+64            android:name="com.google.firebase.components.ComponentDiscoveryService"
+64-->[:firebase_auth] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
+65            android:directBootAware="true"
+65-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:34:13-43
+66            android:exported="false" >
+66-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:68:13-37
+67            <meta-data
+67-->[:firebase_auth] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+68                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+68-->[:firebase_auth] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+69                android:value="com.google.firebase.components.ComponentRegistrar" />
+69-->[:firebase_auth] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+70            <meta-data
+70-->[:firebase_core] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+71                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+71-->[:firebase_core] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+72                android:value="com.google.firebase.components.ComponentRegistrar" />
+72-->[:firebase_core] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+73            <meta-data
+73-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:69:13-71:85
+74                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+74-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:70:17-109
+75                android:value="com.google.firebase.components.ComponentRegistrar" />
+75-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:71:17-82
+76        </service>
+77
+78        <receiver
+78-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-16:39
+79            android:name="com.github.florent37.assets_audio_player.notification.NotificationActionReceiver"
+79-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-108
+80            android:exported="true" />
+80-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-36
+81        <receiver
+81-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:17:9-23:20
+82            android:name="com.github.florent37.assets_audio_player.notification.CustomMediaButtonReceiver"
+82-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-107
+83            android:exported="true" >
+83-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-36
+84            <intent-filter>
+84-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-22:29
+85                <action android:name="android.intent.action.MEDIA_BUTTON" />
+85-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:21:17-77
+85-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:21:25-74
+86            </intent-filter>
+87        </receiver>
+88
+89        <service
+89-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:25:9-35:19
+90            android:name="com.github.florent37.assets_audio_player.notification.NotificationService"
+90-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:26:13-101
+91            android:enabled="true"
+91-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:27:13-35
+92            android:exported="true" >
+92-->[:assets_audio_player] /home/aryan/Desktop/coding/net/BTPLanguageLearningApp/build/assets_audio_player/intermediates/merged_manifest/debug/AndroidManifest.xml:28:13-36
 93
-94</manifest>
+94            <!--
+95            <intent-filter>
+96                <action android:name="android.intent.action.MEDIA_BUTTON" />
+97            </intent-filter>
+98            -->
+99        </service>
+100
+101        <activity
+101-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:29:9-46:20
+102            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+102-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:30:13-80
+103            android:excludeFromRecents="true"
+103-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:31:13-46
+104            android:exported="true"
+104-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:32:13-36
+105            android:launchMode="singleTask"
+105-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:33:13-44
+106            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+106-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:34:13-72
+107            <intent-filter>
+107-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:35:13-45:29
+108                <action android:name="android.intent.action.VIEW" />
+108-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:36:17-69
+108-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:36:25-66
+109
+110                <category android:name="android.intent.category.DEFAULT" />
+110-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:38:17-76
+110-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:38:27-73
+111                <category android:name="android.intent.category.BROWSABLE" />
+111-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:39:17-78
+111-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:39:27-75
+112
+113                <data
+113-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:41:17-44:51
+114                    android:host="firebase.auth"
+114-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:42:21-49
+115                    android:path="/"
+115-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:43:21-37
+116                    android:scheme="genericidp" />
+116-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:44:21-48
+117            </intent-filter>
+118        </activity>
+119        <activity
+119-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:47:9-64:20
+120            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+120-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:48:13-79
+121            android:excludeFromRecents="true"
+121-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:49:13-46
+122            android:exported="true"
+122-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:50:13-36
+123            android:launchMode="singleTask"
+123-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:51:13-44
+124            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+124-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:52:13-72
+125            <intent-filter>
+125-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:53:13-63:29
+126                <action android:name="android.intent.action.VIEW" />
+126-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:36:17-69
+126-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:36:25-66
+127
+128                <category android:name="android.intent.category.DEFAULT" />
+128-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:38:17-76
+128-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:38:27-73
+129                <category android:name="android.intent.category.BROWSABLE" />
+129-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:39:17-78
+129-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:39:27-75
+130
+131                <data
+131-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:41:17-44:51
+132                    android:host="firebase.auth"
+132-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:42:21-49
+133                    android:path="/"
+133-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:43:21-37
+134                    android:scheme="recaptcha" />
+134-->[com.google.firebase:firebase-auth:22.1.0] /home/aryan/.gradle/caches/transforms-3/2dcde990d7906cf39666b65d62181a42/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:44:21-48
+135            </intent-filter>
+136        </activity>
+137
+138        <uses-library
+138-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/b1f19eb2f35d2edc48a6068d9ef595ac/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+139            android:name="androidx.window.extensions"
+139-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/b1f19eb2f35d2edc48a6068d9ef595ac/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+140            android:required="false" />
+140-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/b1f19eb2f35d2edc48a6068d9ef595ac/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+141        <uses-library
+141-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/b1f19eb2f35d2edc48a6068d9ef595ac/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+142            android:name="androidx.window.sidecar"
+142-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/b1f19eb2f35d2edc48a6068d9ef595ac/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+143            android:required="false" />
+143-->[androidx.window:window:1.0.0-beta04] /home/aryan/.gradle/caches/transforms-3/b1f19eb2f35d2edc48a6068d9ef595ac/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+144
+145        <provider
+145-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:25:9-30:39
+146            android:name="com.google.firebase.provider.FirebaseInitProvider"
+146-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:26:13-77
+147            android:authorities="com.example.btp.firebaseinitprovider"
+147-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:27:13-72
+148            android:directBootAware="true"
+148-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:28:13-43
+149            android:exported="false"
+149-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:29:13-37
+150            android:initOrder="100" />
+150-->[com.google.firebase:firebase-common:20.3.3] /home/aryan/.gradle/caches/transforms-3/03c0c7089a090825f6560dcc4fa60f85/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:30:13-36
+151
+152        <activity
+152-->[com.google.android.gms:play-services-base:18.0.1] /home/aryan/.gradle/caches/transforms-3/6fea41c4d11774e75bb4fb8a0599a029/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+153            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+153-->[com.google.android.gms:play-services-base:18.0.1] /home/aryan/.gradle/caches/transforms-3/6fea41c4d11774e75bb4fb8a0599a029/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+154            android:exported="false"
+154-->[com.google.android.gms:play-services-base:18.0.1] /home/aryan/.gradle/caches/transforms-3/6fea41c4d11774e75bb4fb8a0599a029/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+155            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+155-->[com.google.android.gms:play-services-base:18.0.1] /home/aryan/.gradle/caches/transforms-3/6fea41c4d11774e75bb4fb8a0599a029/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+156
+157        <meta-data
+157-->[com.google.android.gms:play-services-basement:18.1.0] /home/aryan/.gradle/caches/transforms-3/9967fa24ce9cabf41ba4f6ce35116069/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+158            android:name="com.google.android.gms.version"
+158-->[com.google.android.gms:play-services-basement:18.1.0] /home/aryan/.gradle/caches/transforms-3/9967fa24ce9cabf41ba4f6ce35116069/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+159            android:value="@integer/google_play_services_version" />
+159-->[com.google.android.gms:play-services-basement:18.1.0] /home/aryan/.gradle/caches/transforms-3/9967fa24ce9cabf41ba4f6ce35116069/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+160    </application>
+161
+162</manifest>

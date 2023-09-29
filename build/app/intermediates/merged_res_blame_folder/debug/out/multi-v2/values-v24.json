@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.btp.app-mergeDebugResources-18:/values-v24/values-v24.xml",
+            "outputFile": "com.example.btp.app-mergeDebugResources-23:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/home/aryan/.gradle/caches/transforms-3/2cabe7fb2ea79fbc0797d84ccb379c34/transformed/media-1.6.0/res/values-v24/values-v24.xml",
+                    "source": "/home/aryan/.gradle/caches/transforms-3/1f3319af84f75e46fef8f5b0d96397b5/transformed/media-1.6.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
