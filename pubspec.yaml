@@ -47,7 +47,7 @@ dependencies:
   assets_audio_player: ^3.0.6
   perfect_volume_control: ^1.0.5
   firebase_core: ^2.15.1
-  firebase_auth: ^4.9.
+  firebase_auth: ^4.9.1
   rive: ^0.11.16
   
 
@@ -82,6 +82,7 @@ flutter:
     - assets/icons/
     - assets/audioFiles/
     - assets/images/achievements/
+    - assets/anim/
     - lib/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
