@@ -1,8 +1,10 @@
+import 'package:btp/configs/size.dart';
 import 'package:btp/configs/themes/app_colors.dart';
 import 'package:btp/widgets/app_circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:rive/rive.dart';
 
 import 'package:get/get.dart';
 
@@ -20,7 +22,11 @@ class AppIntroductionScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/dogSitting.jpg', height: 200),
+            Container(
+              height: getProportionHeight(400),
+              child: RiveAnimation.asset('assets/anim/dog_front_stand.riv',
+                  fit: BoxFit.cover),
+            ),
             const SizedBox(height: 40),
             const Text(
               "Hi guys, I'm pochi the dog!\n Let us start learning English for today.\n",
