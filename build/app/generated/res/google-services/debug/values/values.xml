@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="gcm_defaultSenderId" translatable="false">914550410014</string>
-    <string name="google_api_key" translatable="false">AIzaSyC92cbFv2-6yhMFWnUBp4l-nT8V5SA5X50</string>
-    <string name="google_app_id" translatable="false">1:914550410014:android:c243151be7e7ac0522570f</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC92cbFv2-6yhMFWnUBp4l-nT8V5SA5X50</string>
-    <string name="google_storage_bucket" translatable="false">lingo-52cac.appspot.com</string>
-    <string name="project_id" translatable="false">lingo-52cac</string>
-</resources>
