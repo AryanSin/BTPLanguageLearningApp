@@ -23,7 +23,8 @@ class AppIntroductionScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: getProportionHeight(400),
+              height: getProportionHeight(200),
+              width: getProportionWidth(200),
               child: RiveAnimation.asset('assets/anim/dog_front_stand.riv',
                   fit: BoxFit.cover),
             ),
