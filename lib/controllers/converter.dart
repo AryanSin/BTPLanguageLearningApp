@@ -23,3 +23,32 @@ class Audios {
         word = json['word'],
         syllable = json['syllables'];
 }
+
+class AudioGroup {
+  String groupName;
+
+  int unlockPrice;
+  int skipPrice;
+
+  int completionRate;
+  int score;
+  int difficulty;
+
+  bool isUnlocked;
+  bool isSkipped;
+  bool isFavorite;
+
+  List<Audios> audios;
+
+  AudioGroup(
+      {required this.groupName,
+      required this.unlockPrice,
+      required this.skipPrice,
+      required this.completionRate,
+      required this.score,
+      required this.difficulty,
+      required this.isUnlocked,
+      required this.isSkipped,
+      required this.isFavorite,
+      required this.audios});
+}

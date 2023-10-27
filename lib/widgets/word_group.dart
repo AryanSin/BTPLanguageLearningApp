@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
 
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -12,6 +14,10 @@ import 'package:btp/widgets/text_with_back_color.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
 
 class WordsGroup extends StatefulWidget {
   final String Details;
@@ -89,24 +95,6 @@ class _WordsGroupState extends State<WordsGroup> {
                   fontWeight: FontWeight.w400),
             ),
           ),
-          // Positioned(
-          //   top: getProportionHeight(39),
-          //   left: getProportionWidth(13.75),
-          //   width: getProportionWidth(70),
-          //   height: getProportionHeight(39),
-          //   child: SizedBox(
-          //     width: getProportionWidth(50),
-          //     height: getProportionHeight(39),
-          //     child: AutoSizeText(
-          //       widget.secondaryDetails,
-          //       maxLines: 4,
-          //       style: TextStyle(
-          //           fontSize: getProportionWidth(12.0),
-          //           color: Color.fromARGB(255, 248, 250, 252),
-          //           fontWeight: FontWeight.w400),
-          //     ),
-          //   ),
-          // ),
           Positioned(
             right: getProportionWidth(36),
             bottom: getProportionHeight(60),
@@ -152,10 +140,6 @@ class _WordsGroupState extends State<WordsGroup> {
                 alignment: Alignment.center,
                 child: InkWell(
                   onTap: () {
-                    //  write an if else condition
-                    // if unlocked then navigate to the page
-                    // else show a dialog box
-
                     if (unlocked) {
                       _sendDataToSecondScreen(context);
                     } else {
@@ -243,8 +227,6 @@ class _WordsGroupState extends State<WordsGroup> {
               lineHeight: getProportionHeight(11.51),
               animationDuration: 2000,
               percent: completionPercentage / 100.0,
-              // barRadius: getProportionWidth(4),
-              // Make barRadius of 4
               barRadius: Radius.circular(getProportionWidth(4)),
               progressColor: Color.fromARGB(255, 116, 69, 255),
             ),
@@ -359,79 +341,93 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  // with SingleTickerProviderStateMixin {
-  // late AnimationController iconController;
-
-  // bool isAnimated = false;
-  // bool showPlay = true;
-  // bool shopPause = false;
-
-  // AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
-  // late _score = widget.score;
   late AssetsAudioPlayer _assetsAudioPlayer;
+  final recorder = FlutterSoundRecorder();
   final List<StreamSubscription> _subscriptions = [];
-
-  // final audios = <Audio>[
-  //Audio.network(
-  //  'https://d14nt81hc5bide.cloudfront.net/U7ZRzzHfk8pvmW28sziKKPzK',
-  //  metas: Metas(
-  //    id: 'Invalid',
-  //    title: 'Invalid',
-  //    artist: 'Florent Champigny',
-  //    album: 'OnlineAlbum',
-  //    image: MetasImage.network(
-  //        'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-  //  ),
-  //),
-
-  // Audio.network(
-  //   'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
-  //   metas: Metas(
-  //     id: 'Online',
-  //     title: 'Online',
-  //     artist: 'Florent Champigny',
-  //     album: 'OnlineAlbum',
-  //     // image: MetasImage.network('https://www.google.com')
-  //     image: MetasImage.network(
-  //         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-  //   ),
-  // Do the above thing for a local file audio
-  // Audio.file(
-  //   'assets/audioFiles/anju_Phoneme_L4_5-2.wav',
-  //   metas: Metas(
-  //     id: 'Local',
-  //     title: "widget.audioFile!.word",
-  //     artist: 'Florent Champigny',
-  //     album: 'LocalAlbum',
-  //     // image: MetasImage.network('https://www.google.com')
-  //     image: MetasImage.network(
-  //         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-  //   ),
-  // ),
-  // ];
+  bool isRecorderReady = false;
 
   @override
   void initState() {
+    super.initState();
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
-    // _subscriptions.add(_assetsAudioPlayer.playlistAudioFinished.listen((data) {
-    //   print('playlistAudioFinished : $data');
-    // }));
-    // _subscriptions.add(_assetsAudioPlayer.audioSessionId.listen((sessionId) {
-    //   print('audioSessionId : $sessionId');
-    // }));
-
-    // openPlayer();
+    initRecorder();
   }
 
-  // void openPlayer() async {
-  //   await _assetsAudioPlayer.open(
-  //     Playlist(audios: audios, startIndex: 0),
-  //     showNotification: true,
-  //     autoStart: true,
-  //   );
-  // }
-  // The above code shows PlatformException(OPEN, null, null, null)
-  // The reason is that the audio file is not in the assets folder
+  Future initRecorder() async {
+    final status = await Permission.microphone.request();
+
+    if (status != PermissionStatus.granted) {
+      throw 'Microphone permission not granted';
+    }
+
+    await recorder.openRecorder();
+
+    isRecorderReady = true;
+  }
+
+  Future record() async {
+    if (!isRecorderReady) {
+      return;
+    }
+    print('start recording');
+    await recorder.startRecorder(
+      toFile: "test.mp4",
+    );
+  }
+
+  Future<void> fetchRandomScore() async {
+    // Simulate fetching the score, e.g., from an API call
+    await Future.delayed(Duration(seconds: 1));
+    int randomScore = Random().nextInt(100);
+
+    // Update the widget's score and trigger a rebuild
+    setState(() {
+      widget.score = randomScore.toDouble();
+    });
+  }
+
+  Future<void> stop() async {
+    if (!isRecorderReady) {
+      return;
+    }
+    final res = await recorder.stopRecorder();
+    print('stop recording: $res');
+    // /data/user/0/com.example.btp/cache/test.mp4
+    if (res != null) {
+      final file = File(res);
+      final audioFile = await file.readAsBytes();
+      final audioBase64 = base64Encode(audioFile);
+      print("Audio:" + audioBase64);
+      try {
+        final response = await http.post(
+          Uri.parse(
+              'http://127.0.0.1:5000/process_audio'), // Replace with the actual API endpoint
+          body: {
+            'audio': audioBase64,
+          },
+        );
+
+        if (response.statusCode == 200) {
+          // Successfully sent the audio data to the server
+          final responseData = json.decode(response.body);
+          print('Response Data: $responseData');
+
+          // You can access the response data as needed. For example, if the response is JSON:
+          final randomInt = responseData['random_int'];
+          print('Random Integer: $randomInt');
+        } else {
+          // Handle HTTP error
+          print('HTTP Error: ${response.statusCode}');
+        }
+      } catch (e) {
+        // Handle any exceptions (e.g., network errors)
+        print('Exception: $e');
+      }
+    }
+
+    // Fetch a random score or perform other actions here
+    // fetchRandomScore();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -457,25 +453,55 @@ class _SecondScreenState extends State<SecondScreen> {
             Align(
               alignment: Alignment.center,
               child: IconText(
-                onTap: () {
-                  // _assetsAudioPlayer.open(
-                  //   Audio("assets/audioFiles/anju_Phoneme_L4_5-2.wav"),
-                  // );
+                onTap: () async {
+                  if (recorder.isRecording) {
+                    await stop();
+                  } else {
+                    await record();
+                  }
+
+                  setState(() {});
                 },
                 text: widget.audioFile!.word,
                 child: Icon(
                   Icons.mic_rounded,
                   size: getProportionHeight(60),
-                  color: Color.fromARGB(255, 116, 69, 255),
+                  color: recorder.isRecording
+                      ? Color.fromARGB(116, 69, 255, 255)
+                      : Color.fromARGB(255, 116, 69, 255),
                 ),
               ),
             ),
             SizedBox(height: getProportionHeight(21.69)),
-            TextWithBackColor(
-              text: "Submit",
-              color: Color.fromARGB(255, 164, 113, 246),
-              width: 150,
-              height: 36,
+            // TextWithBackColor(
+            // text: "Submit",
+            // color: Color.fromARGB(255, 164, 113, 246),
+            // width: 150,
+            // height: 36,
+            // onTap: fetchRandomScore(),
+            // ),
+            ElevatedButton(
+              onPressed: fetchRandomScore,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 164, 113, 246)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(getProportionHeight(4)),
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all<Size>(
+                  Size(getProportionWidth(150), getProportionHeight(36)),
+                ),
+              ),
+              child: Text(
+                "Submit",
+                style: TextStyle(
+                  fontSize: getProportionHeight(16),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
             SizedBox(
               height: getProportionHeight(44),
@@ -569,20 +595,7 @@ class _SecondScreenState extends State<SecondScreen> {
     // iconController.dispose();
     // audioPlayer.dispose();
     _assetsAudioPlayer.dispose();
+    recorder.closeRecorder();
     super.dispose();
   }
 }
-
-
-/*
-IconText(
-  height: 70,
-  child: Icon(
-    Icons.play_circle_outline_rounded,
-    size: getProportionHeight(60),
-    color: Color.fromARGB(255, 116, 69, 255),
-  ),
-  text: widget.audioFile!.syllable,
-  onTap: audioPlayer.play(),
-),
-*/
