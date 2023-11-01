@@ -6,7 +6,6 @@ import 'package:btp/screens/problems_screen.dart';
 import 'package:btp/screens/settings_screen.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   @override

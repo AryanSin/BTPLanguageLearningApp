@@ -1,5 +1,21 @@
-
 {
+    "audioGroup": [
+    {
+    "groupId": 1,
+    "groupName" : "Group 1",
+    "groupDescription" : "Group 1",
+
+    "unlockPrice" : 0,
+    "skipPrice" : 0,
+
+    "completionRate": 20,
+    "score": 0,
+    "difficulty":50,
+
+    "isUnlocked": false,
+    "isSkipped": false,
+    "isFavorite": false,
+
     "audios" : [
         {
             "audioName" : "anju_Phoneme_L4_5-2",
@@ -27,4 +43,6 @@
             "syllables" : "DH OW"
         }
     ]
+}
+]
 }

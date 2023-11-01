@@ -8,6 +8,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btp/configs/size.dart';
 import 'package:btp/controllers/converter.dart';
+import 'package:btp/controllers/dataReader.dart';
 import 'package:btp/widgets/button.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/text_with_back_color.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:rive/rive.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -26,7 +28,7 @@ class WordsGroup extends StatefulWidget {
   final double width;
   final bool liked;
   final bool unlocked;
-  final Audios? audioFile;
+  final AudioGroup? audioGroup;
 
   const WordsGroup({
     Key? key,
@@ -36,19 +38,36 @@ class WordsGroup extends StatefulWidget {
     this.unlocked = false,
     this.height = 184.41,
     this.width = 280,
-    required this.audioFile,
+    required this.audioGroup,
   }) : super(key: key);
 
   @override
   _WordsGroupState createState() => _WordsGroupState();
+
+  double calulateCompletionRate(totalScore) {
+    if (controller2.audioGroup?.audios.isNotEmpty == true) {
+      return totalScore / (controller2.audioGroup!.audios.length * 100);
+    } else {
+      return 0;
+    }
+  }
 }
 
 class _WordsGroupState extends State<WordsGroup> {
+  double currentWordIndex = 0;
+  double totalScore = 0;
   late double height = widget.height;
   late double width = widget.width;
   late bool liked = widget.liked;
   late bool unlocked = widget.unlocked;
   late double completionPercentage = widget.completionPercentage;
+
+  void moveToNextWord() {
+    setState(() {
+      currentWordIndex =
+          (currentWordIndex + 1) % widget.audioGroup!.audios.length;
+    });
+  }
 
   _WordsGroupState();
 
@@ -70,7 +89,7 @@ class _WordsGroupState extends State<WordsGroup> {
             height: getProportionHeight(24),
             child: Center(
               child: AutoSizeText(
-                widget.audioFile?.word ?? "",
+                widget.audioGroup?.groupName ?? "",
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 style: TextStyle(
@@ -142,6 +161,7 @@ class _WordsGroupState extends State<WordsGroup> {
                   onTap: () {
                     if (unlocked) {
                       _sendDataToSecondScreen(context);
+                      print("Unlocked");
                     } else {
                       setState(() {
                         unlocked = true;
@@ -226,7 +246,9 @@ class _WordsGroupState extends State<WordsGroup> {
               animation: true,
               lineHeight: getProportionHeight(11.51),
               animationDuration: 2000,
-              percent: completionPercentage / 100.0,
+              percent:
+                  widget.calulateCompletionRate(widget.completionPercentage),
+              // completionPercentage / 100.0,
               barRadius: Radius.circular(getProportionWidth(4)),
               progressColor: Color.fromARGB(255, 116, 69, 255),
             ),
@@ -317,12 +339,22 @@ class _WordsGroupState extends State<WordsGroup> {
   }
 
   void _sendDataToSecondScreen(BuildContext context) {
-    Audios? audio = widget.audioFile;
+    if (currentWordIndex != 0) {
+      Timer(Duration(seconds: 2), () {
+        setState(() {
+          currentWordIndex =
+              (currentWordIndex + 1) % widget.audioGroup!.audios.length;
+        });
+      });
+    }
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => SecondScreen(
-            audioFile: audio,
+            currentWordIndex: currentWordIndex.toInt(),
+            audioGroup: widget.audioGroup,
+            totalScore: totalScore,
+            audioFile: widget.audioGroup!.audios[currentWordIndex.toInt()],
           ),
         ));
   }
@@ -330,10 +362,19 @@ class _WordsGroupState extends State<WordsGroup> {
 
 class SecondScreen extends StatefulWidget {
   final Audios? audioFile;
+  final AudioGroup? audioGroup;
+  int currentWordIndex;
+  double totalScore;
   double score;
 
   // receive data from the FirstScreen as a parameter
-  SecondScreen({Key? key, required this.audioFile, this.score = 40})
+  SecondScreen(
+      {Key? key,
+      required this.audioFile,
+      required this.audioGroup,
+      required this.currentWordIndex,
+      required this.totalScore,
+      this.score = 0})
       : super(key: key);
 
   @override
@@ -345,6 +386,8 @@ class _SecondScreenState extends State<SecondScreen> {
   final recorder = FlutterSoundRecorder();
   final List<StreamSubscription> _subscriptions = [];
   bool isRecorderReady = false;
+  bool isSubmitted = false;
+  bool isRecorded = false;
 
   @override
   void initState() {
@@ -381,15 +424,20 @@ class _SecondScreenState extends State<SecondScreen> {
     int randomScore = Random().nextInt(100);
 
     // Update the widget's score and trigger a rebuild
+    // widget.totalScore += randomScore;
     setState(() {
       widget.score = randomScore.toDouble();
     });
+    print("Score: ${widget.score}");
+    print("Total Score: ${widget.totalScore}");
+    isSubmitted = true;
   }
 
   Future<void> stop() async {
     if (!isRecorderReady) {
       return;
     }
+    isRecorded = true;
     final res = await recorder.stopRecorder();
     print('stop recording: $res');
     // /data/user/0/com.example.btp/cache/test.mp4
@@ -424,9 +472,44 @@ class _SecondScreenState extends State<SecondScreen> {
         print('Exception: $e');
       }
     }
-
     // Fetch a random score or perform other actions here
     // fetchRandomScore();
+  }
+
+  void _sendDataToTotalScoreScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TotalScoreScreen(
+          totalScore: widget.totalScore,
+        ),
+      ),
+    );
+  }
+
+  void _NextWord(BuildContext context) {
+    final nextIndex =
+        (widget.currentWordIndex + 1) % widget.audioGroup!.audios.length;
+    if (nextIndex == 0) {
+      Navigator.pop(context);
+      _sendDataToTotalScoreScreen(context);
+      return;
+    }
+    if (nextIndex != widget.currentWordIndex) {
+      // Only navigate to the next word if it's different from the current one
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecondScreen(
+            totalScore: widget.totalScore,
+            audioGroup: widget.audioGroup,
+            audioFile: widget.audioGroup!.audios[nextIndex],
+            currentWordIndex: nextIndex,
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -481,7 +564,11 @@ class _SecondScreenState extends State<SecondScreen> {
             // onTap: fetchRandomScore(),
             // ),
             ElevatedButton(
-              onPressed: fetchRandomScore,
+              onPressed: (() {
+                if (!isRecorded) {
+                  fetchRandomScore();
+                }
+              }),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
                     Color.fromARGB(255, 164, 113, 246)),
@@ -583,6 +670,34 @@ class _SecondScreenState extends State<SecondScreen> {
                 ],
               ),
             ),
+            ElevatedButton(
+              onPressed: (() {
+                if (isSubmitted) {
+                  widget.totalScore += widget.score;
+                  _NextWord(context);
+                }
+              }),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 164, 113, 246)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(getProportionHeight(4)),
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all<Size>(
+                  Size(getProportionWidth(150), getProportionHeight(36)),
+                ),
+              ),
+              child: Text(
+                "Next",
+                style: TextStyle(
+                  fontSize: getProportionHeight(16),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -597,5 +712,76 @@ class _SecondScreenState extends State<SecondScreen> {
     _assetsAudioPlayer.dispose();
     recorder.closeRecorder();
     super.dispose();
+  }
+}
+
+class TotalScoreScreen extends StatelessWidget {
+  final double totalScore;
+
+  TotalScoreScreen({
+    Key? key,
+    required this.totalScore,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Total Score"),
+        backgroundColor:
+            Color.fromARGB(255, 11, 10, 54), // Change background color
+      ),
+      backgroundColor: Color.fromARGB(255, 11, 10, 54),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: getProportionHeight(300),
+              child: RiveAnimation.asset('assets/anim/dog_side_butterfly.riv',
+                  fit: BoxFit.cover),
+            ),
+            TextWithBackColor(
+              text: "Total Score: ${totalScore.toStringAsFixed(2)}",
+              color: Color.fromARGB(255, 13, 17, 21),
+              width: 300, // Increase the width of the total score widget
+              height: 90, // Increase the height of the total score widget
+              textStyle: TextStyle(
+                fontSize: 24, // Increase the font size
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+                height:
+                    20), // Add some space between total score and finish button
+            ElevatedButton(
+              onPressed: (() {
+                Navigator.pop(context);
+              }),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 164, 113, 246)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(getProportionHeight(4)),
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all<Size>(
+                  Size(getProportionWidth(150), getProportionHeight(36)),
+                ),
+              ),
+              child: Text(
+                "Finish",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

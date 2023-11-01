@@ -25,8 +25,8 @@ class DataReader extends GetxController {
         .where((path) =>
             path.startsWith("assets/audioFiles") && path.contains(".json"))
         .toList();
-
-    // print(papersInAssets);
+    print("Papers in assets: ");
+    print(papersInAssets);
 
     List<WordPaperModel> questionPapers = [];
 
@@ -36,7 +36,8 @@ class DataReader extends GetxController {
           .add(WordPaperModel.fromJson(json.decode(stringPaperContent)));
     }
 
-    print('${questionPapers[0].audios?[0].audioName}');
+    print("Question Papers: ");
+    print('${questionPapers[0].audioGroup?.groupName}');
 
     controller2 = questionPapers[0];
     return questionPapers[0];
