@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btp/configs/size.dart';
+import 'package:btp/controllers/auth_controller.dart';
 import 'package:btp/controllers/dataReader.dart';
 import 'package:btp/screens/home_page.dart';
+import 'package:btp/services/auth_services.dart';
 import 'package:btp/widgets/my_textfield.dart';
 import 'package:btp/widgets/square_tile.dart';
 import 'package:btp/widgets/word_group.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +32,8 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
 
   final confirmPasswordController = TextEditingController();
 
+  final userNameController = TextEditingController();
+
   void signUserUp() async {
     showDialog(
       context: context,
@@ -36,6 +41,14 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
         child: CircularProgressIndicator(),
       ),
     );
+    bool isValidEmail(String email) {
+      // Regular expression for validating an Email
+      final RegExp emailRegex =
+          RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+
+      // Test the email against the regular expression
+      return emailRegex.hasMatch(email);
+    }
 
     try {
       if (passwordController.text != confirmPasswordController.text) {
@@ -52,9 +65,23 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
         );
         return;
       }
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
+      if (isValidEmail(emailController.text) == false) {
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text('The email is not valid.'),
+              content: Text("Please enter a valid email."),
+            );
+          },
+        );
+        return;
+      }
+      AuthController().signUp(emailController.text, passwordController.text,
+          userNameController.text);
       Navigator.pop(context);
+      // add user details
       widget.onTap!();
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -96,7 +123,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
         backgroundColor: Color.fromARGB(255, 14, 18, 22),
         title: Text("Sign Up"),
       ),
-      backgroundColor: Color.fromARGB(255, 6, 6, 8),
+      backgroundColor: const Color.fromARGB(255, 11, 10, 54),
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -106,6 +133,13 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                 Form(
                   child: Column(
                     children: [
+                      const SizedBox(height: 30),
+                      MyTextField(
+                        controller: userNameController,
+                        hintText: "Enter Username",
+                        obscureText: false,
+                        icon: const Icon(Icons.person),
+                      ),
                       const SizedBox(height: 30),
                       MyTextField(
                         controller: emailController,
@@ -181,10 +215,16 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                   ],
                 ),
                 const SizedBox(height: 30),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SquareTile(imagePath: 'lib/images/google.png'),
+                    SquareTile(
+                      imagePath: 'lib/images/google.png',
+                      onTap: () => {
+                        AuthController().signInWithGoogle(),
+                        widget.onTap!()
+                      },
+                    ),
                   ],
                 ),
                 const SizedBox(height: 60),
@@ -192,7 +232,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Not a member?',
+                      'Already registered?',
                       style: TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(width: 4),
@@ -200,7 +240,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                       onTap:
                           widget.onTap != null ? () => widget.onTap!() : null,
                       child: const Text(
-                        'Register now',
+                        'Sign In',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,

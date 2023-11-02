@@ -1,5 +1,6 @@
 import 'package:btp/configs/size.dart';
 import 'package:btp/configs/themes/app_colors.dart';
+import 'package:btp/controllers/auth_controller.dart';
 import 'package:btp/widgets/app_circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -36,6 +37,7 @@ class AppIntroductionScreen extends StatelessWidget {
             ),
             AppCircleButton(
                 onTap: () => Get.offAndToNamed("/home"),
+                // onTap: () => Get.offAndToNamed("/login"),
                 child: const Icon(Icons.arrow_forward, size: 35))
           ],
         ),

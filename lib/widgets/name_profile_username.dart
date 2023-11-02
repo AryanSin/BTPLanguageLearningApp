@@ -4,16 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NameProfileUsername extends StatelessWidget {
-  final String first_name;
-  final String last_name;
   final String username;
   final String image_url;
   const NameProfileUsername(
-      {Key? key,
-      this.first_name = "Aryan",
-      this.last_name = "Singhal",
-      this.username = "AryanSin",
-      this.image_url = "assets/images/logo.png"})
+      {Key? key, required this.username, required this.image_url})
       : super(key: key);
 
   @override
@@ -24,26 +18,12 @@ class NameProfileUsername extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: getProportionHeight(15),
-            left: getProportionWidth(18),
-            width: getProportionWidth(249),
-            height: getProportionHeight(28),
-            child: AutoSizeText(
-              "$first_name $last_name",
-              style: TextStyle(
-                fontSize: getProportionHeight(24),
-                color: Colors.white,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          Positioned(
             top: getProportionHeight(54),
-            left: getProportionWidth(18),
+            left: getProportionWidth(50),
             width: getProportionWidth(100),
             height: getProportionHeight(19),
             child: AutoSizeText(
-              "$username",
+              username,
               style: TextStyle(
                 fontSize: getProportionHeight(16),
                 color: Colors.white,
@@ -52,17 +32,15 @@ class NameProfileUsername extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: getProportionHeight(10),
-            left: getProportionWidth(288),
+            top: getProportionHeight(15),
+            right: getProportionWidth(60),
             child: Container(
               height: getProportionHeight(70),
               width: getProportionWidth(70),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage(
-                    image_url,
-                  ),
+                  image: NetworkImage(image_url, scale: 1.0),
                   fit: BoxFit.fill,
                 ),
               ),

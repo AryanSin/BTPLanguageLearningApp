@@ -1,4 +1,5 @@
 import 'package:btp/configs/size.dart';
+import 'package:btp/controllers/auth_controller.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/name_profile_username.dart';
 import 'package:btp/widgets/settingsIcon.dart';
@@ -20,7 +21,11 @@ class SettingsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: getProportionHeight(30)),
-            NameProfileUsername(),
+            NameProfileUsername(
+                username:
+                    AuthController().myStorage.read('userName').toString(),
+                image_url:
+                    AuthController().myStorage.read('userPhotoURL').toString()),
             SizedBox(
               height: getProportionHeight(50),
             ),
