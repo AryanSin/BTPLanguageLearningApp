@@ -52,6 +52,15 @@ dependencies:
   permission_handler: ^11.0.1
   flutter_sound: ^9.2.13
   http: ^0.13.6
+  alert_dialog: ^1.0.2
+  alert_dialog_box: ^0.0.2
+  google_sign_in: ^6.1.5
+  cloud_firestore: ^4.9.3
+  logger: ^2.0.2+1
+  get_storage: ^2.1.1
+  firebase_database: ^10.3.2
+  firebase_storage: ^11.4.0
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:

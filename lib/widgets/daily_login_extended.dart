@@ -74,7 +74,7 @@ class _DailyLoginExtendedState extends State<DailyLoginExtended> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getProportionHeight(281),
+      // height: getProportionHeight(281),
       width: getProportionWidth(330),
       color: Color.fromARGB(255, 13, 17, 21),
       child: _calendarBody(),
@@ -102,7 +102,7 @@ class _DailyLoginExtendedState extends State<DailyLoginExtended> {
             ),
           ),
         ),
-        SizedBox(height: getProportionHeight(3.259259259)),
+        SizedBox(height: getProportionHeight(15)),
         GridView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.zero,
@@ -115,10 +115,12 @@ class _DailyLoginExtendedState extends State<DailyLoginExtended> {
           itemBuilder: (context, index) {
             if (days[index].date == _selectedDateTime)
               return _selector(days[index]);
-            if (index >= _monthDays[month - 1]) return Container();
+            if (index >= _monthDays[month - 1]) return _selector(days[index]);
             return _calendarDates(days[index]);
+            // return Container();
           },
         ),
+        SizedBox(height: getProportionHeight(5)),
       ],
     );
   }
