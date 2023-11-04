@@ -4,9 +4,7 @@ import 'package:btp/widgets/daily_login_mini.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/text_with_back_color.dart';
 import 'package:btp/widgets/word_group.dart';
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 280,
                 unlocked: true,
                 liked: true,
-                audioFile: controller2.audios?[0],
+                audioGroup: controller2.audioGroups?.elementAt(0),
                 Details: "Primary Details\nSecondary Details",
                 completionPercentage: 90,
               ),
@@ -49,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 280,
                 unlocked: true,
                 liked: true,
-                audioFile: controller2.audios?[1],
+                audioGroup: controller2.audioGroups?.elementAt(1),
                 Details: "Primary Details\nSecondary Details",
                 completionPercentage: 90,
               ),

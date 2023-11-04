@@ -23,14 +23,6 @@ class ProblemsScreen extends StatefulWidget {
 
 class _ProblemsScreenState extends State<ProblemsScreen> {
   Widget? w;
-
-  // _ProblemsScreenState() {
-  //   DataReader dr = DataReader();
-  //   dr.controller2 = dr.getWidget();
-  // }
-
-  // access the return of
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,27 +39,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                   fit: BoxFit.cover),
             ),
             const SizedBox(height: 30),
-            // GridView.builder(
-            //   shrinkWrap: true,
-            //   // padding: EdgeInsets.zero,
-            //   itemCount: controller2.length,
-            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //     mainAxisSpacing: getProportionHeight(21.456790123),
-            //     crossAxisCount: 1,
-            //   ),
-            //   itemBuilder: (context, index) {
-            //     return WordsGroup(
-            //         height: 184.41,
-            //         width: 280,
-            //         unlocked: true,
-            //         liked: true,
-            //         Details: "${controller2.audios?[index].syllable}",
-            //         completionPercentage: index * 10,
-            //         title: controller2.audios?[index].word ?? "");
-            //   },
-            // ),
-            // use a loop for the above code
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 4; i++)
               Align(
                 alignment: Alignment.center,
                 child: Column(
@@ -77,9 +49,14 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                         width: 280,
                         unlocked: (i % 2 == 1) ? true : false,
                         liked: (i % 2 == 0) ? true : false,
-                        Details: "${controller2.audios?[i].syllable}",
-                        completionPercentage: i * 10,
-                        audioFile: controller2.audios?[i]),
+                        Details:
+                            "${controller2.audioGroups?.elementAt(i).groupName}",
+                        completionPercentage: controller2.audioGroups!
+                            .elementAt(i)
+                            .completionRate
+                            .toDouble(), // Have this be updated from firebase instead of local
+                        // controller2.audioGroup!.completionRate.toDouble(),
+                        audioGroup: controller2.audioGroups?.elementAt(i)),
                     const SizedBox(height: 30),
                   ],
                 ),

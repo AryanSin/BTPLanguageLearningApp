@@ -1,12 +1,11 @@
 import 'package:btp/screens/achievements_screen.dart';
 import 'package:btp/screens/audio_settings_screen.dart';
 import 'package:btp/screens/home_page.dart';
-import 'package:btp/screens/home_screen.dart';
 import 'package:btp/screens/introduction.dart';
-import 'package:btp/screens/login_page.dart';
 import 'package:btp/screens/problems_screen.dart';
 import 'package:btp/screens/settings_screen.dart';
 import 'package:btp/screens/splash_screen.dart';
+import 'package:btp/screens/login_or_register_page.dart';
 import 'package:btp/screens/user_settings_screen.dart';
 import 'package:get/get.dart';
 
@@ -23,8 +22,11 @@ class AppRoutes {
         GetPage(name: "/problems", page: () => ProblemsScreen()),
         GetPage(name: "/achievements", page: () => AchievementsScreen()),
         GetPage(name: "/settings", page: () => SettingsScreen()),
-        GetPage(name: "/userSettings", page: () => UserSettingsScreen()),
+        GetPage(
+            name: "/loginOrRegisterPage", page: () => LoginOrRegisterPage()),
         GetPage(name: "/audioSettings", page: () => AudioSettingsScreen()),
-        // GetPage(name: "/userSettings", page: () => LoginScreen()),
+        GetPage(name: "/userSettings", page: () => UserSettingScreen()),
+
+        // GetPage(name: "/loginOrRegisterPage", page: () => LoginScreen()),
       ];
 }

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "914550410014",
+    "project_id": "lingo-52cac",
+    "storage_bucket": "lingo-52cac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914550410014:android:c243151be7e7ac0522570f",
+        "android_client_info": {
+          "package_name": "com.example.btp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914550410014-n46js6jkqkjf1vuc1kn92pe836air34p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.btp",
+            "certificate_hash": "56a0da68ebb9d067406231d81d322dba13ce37d9"
+          }
+        },
+        {
+          "client_id": "914550410014-8ksqc2s5oitm72hc9hhsf67mjupa733u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC92cbFv2-6yhMFWnUBp4l-nT8V5SA5X50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914550410014-8ksqc2s5oitm72hc9hhsf67mjupa733u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "914550410014-rt38r85rmc26iqr9kepe9rfctt263pi2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.btp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

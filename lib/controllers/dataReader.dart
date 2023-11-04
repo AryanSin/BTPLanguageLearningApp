@@ -16,7 +16,7 @@ class DataReader extends GetxController {
     super.onReady();
   }
 
-  Future<WordPaperModel> readData() async {
+  Future<List<AudioGroup>> readData() async {
     final mainifestContent = await DefaultAssetBundle.of(Get.context!)
         .loadString("AssetManifest.json");
     final Map<String, dynamic> manifestMap = json.decode(mainifestContent);
@@ -25,8 +25,8 @@ class DataReader extends GetxController {
         .where((path) =>
             path.startsWith("assets/audioFiles") && path.contains(".json"))
         .toList();
-
-    // print(papersInAssets);
+    print("Papers in assets: ");
+    print(papersInAssets);
 
     List<WordPaperModel> questionPapers = [];
 
@@ -36,10 +36,11 @@ class DataReader extends GetxController {
           .add(WordPaperModel.fromJson(json.decode(stringPaperContent)));
     }
 
-    print('${questionPapers[0].audios?[0].audioName}');
+    print("Question Papers: ");
+    print('${questionPapers[0].audioGroups?[0].groupName}');
 
     controller2 = questionPapers[0];
-    return questionPapers[0];
+    return questionPapers[0].audioGroups!;
   }
 
   Future<Widget> getWidget() async {
