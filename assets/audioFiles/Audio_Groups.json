@@ -1,48 +1,181 @@
 {
-    "audioGroup": [
-    {
-    "groupId": 1,
-    "groupName" : "Group 1",
-    "groupDescription" : "Group 1",
-
-    "unlockPrice" : 0,
-    "skipPrice" : 0,
-
-    "completionRate": 20,
-    "score": 0,
-    "difficulty":50,
-
-    "isUnlocked": false,
-    "isSkipped": false,
-    "isFavorite": false,
-
-    "audios" : [
+    "audioGroup": 
+    [
         {
-            "audioName" : "anju_Phoneme_L4_5-2",
-            "word" : "NEIGHBOUR",
-            "syllables" : "N EY - B ER"
+            "groupId": 1,
+            "groupName" : "Group 1",
+            "groupDescription" : "Group 1",
+
+            "unlockPrice" : 0,
+            "skipPrice" : 0,
+
+            "completionRate": 20,
+            "score": 0,
+            "difficulty":50,
+
+            "isUnlocked": false,
+            "isSkipped": false,
+            "isFavorite": false,
+
+            "audios" : [
+                {
+                    "audioName" : "anju_Phoneme_L4_5-2",
+                    "word" : "NEIGHBOUR",
+                    "syllables" : "N EY - B ER"
+                },
+                {
+                    "audioName" : "bibin_Phoneme_L5_54-2",
+                    "word" : "INTERRUPTS",
+                    "syllables" : "IH N - T ER - AH P T S"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L1_131-1",
+                    "word" : "NATION",
+                    "syllables" : "N EY - SH AH N"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L2_54-1",
+                    "word" : "BROUGHT",
+                    "syllables" : "B R AO T"
+                },
+                {
+                    "audioName" : "stephy_Phoneme_L1_98-2",
+                    "word" : "THOUGH",
+                    "syllables" : "DH OW"
+                }
+            ]
         },
         {
-            "audioName" : "bibin_Phoneme_L5_54-2",
-            "word" : "INTERRUPTS",
-            "syllables" : "IH N - T ER - AH P T S"
+            "groupId": 2,
+            "groupName" : "Group 2",
+            "groupDescription" : "Group 2",
+
+            "unlockPrice" : 0,
+            "skipPrice" : 0,
+
+            "completionRate": 20,
+            "score": 0,
+            "difficulty":10,
+
+            "isUnlocked": false,
+            "isSkipped": false,
+            "isFavorite": false,
+
+            "audios" : [
+                {
+                    "audioName" : "anju_Phoneme_L4_5-2",
+                    "word" : "FAST",
+                    "syllables" : "F AE S T"
+                },
+                {
+                    "audioName" : "bibin_Phoneme_L5_54-2",
+                    "word" : "VAST",
+                    "syllables" : "V AE S T"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L1_131-1",
+                    "word" : "FEEL",
+                    "syllables" : "F IY L"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L2_54-1",
+                    "word" : "VEAL",
+                    "syllables" : "V IY L"
+                },
+                {
+                    "audioName" : "stephy_Phoneme_L1_98-2",
+                    "word" : "FOAL",
+                    "syllables" : "F OW L"
+                }
+            ]
         },
         {
-            "audioName" : "kiru_Phoneme_L1_131-1",
-            "word" : "NATION",
-            "syllables" : "N EY - SH AH N"
+            "groupId": 3,
+            "groupName" : "Group 3",
+            "groupDescription" : "Group 3",
+
+            "unlockPrice" : 0,
+            "skipPrice" : 0,
+
+            "completionRate": 20,
+            "score": 0,
+            "difficulty":90,
+
+            "isUnlocked": false,
+            "isSkipped": false,
+            "isFavorite": false,
+
+            "audios":[
+                {
+                    "audioName" : "anju_Phoneme_L4_5-2",
+                    "word" : "VOLE",
+                    "syllables" : "V OW L"
+                },
+                {
+                    "audioName" : "bibin_Phoneme_L5_54-2",
+                    "word" : "FERRY",
+                    "syllables" : "F EH R IY"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L1_131-1",
+                    "word" : "VERY",
+                    "syllables" : "V EH R IY"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L2_54-1",
+                    "word" : "FAN",
+                    "syllables" : "F AE N"
+                },
+                {
+                    "audioName" : "stephy_Phoneme_L1_98-2",
+                    "word" : "VAN",
+                    "syllables" : "V AE N"
+                }
+            ]
         },
         {
-            "audioName" : "kiru_Phoneme_L2_54-1",
-            "word" : "BROUGHT",
-            "syllables" : "B R AO T"
-        },
-        {
-            "audioName" : "stephy_Phoneme_L1_98-2",
-            "word" : "THOUGH",
-            "syllables" : "DH OW"
+            "groupId": 4,
+            "groupName" : "Group 4",
+            "groupDescription" : "Group 4",
+
+            "unlockPrice" : 0,
+            "skipPrice" : 0,
+
+            "completionRate": 20,
+            "score": 0,
+            "difficulty":63,
+
+            "isUnlocked": false,
+            "isSkipped": false,
+            "isFavorite": false,
+
+            "audios":[
+                {
+                    "audioName" : "anju_Phoneme_L4_5-2",
+                    "word" : "FEW",
+                    "syllables" : "F EH W"
+                },
+                {
+                    "audioName" : "bibin_Phoneme_L5_54-2",
+                    "word" : "VIEW",
+                    "syllables" : "V Y UW"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L1_131-1",
+                    "word" : "FEAR",
+                    "syllables" : "F EH R"
+                },
+                {
+                    "audioName" : "kiru_Phoneme_L2_54-1",
+                    "word" : "VEER",
+                    "syllables" : "V IY R"
+                },
+                {
+                    "audioName" : "stephy_Phoneme_L1_98-2",
+                    "word" : "FILE",
+                    "syllables" : "F AY L"
+                }
+            ]
         }
     ]
-}
-]
 }

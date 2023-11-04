@@ -39,7 +39,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                   fit: BoxFit.cover),
             ),
             const SizedBox(height: 30),
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 4; i++)
               Align(
                 alignment: Alignment.center,
                 child: Column(
@@ -49,12 +49,14 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                         width: 280,
                         unlocked: (i % 2 == 1) ? true : false,
                         liked: (i % 2 == 0) ? true : false,
-                        Details: "${controller2.audioGroup?.groupName}",
-                        completionPercentage: controller2
-                            .audioGroup!.completionRate
+                        Details:
+                            "${controller2.audioGroups?.elementAt(i).groupName}",
+                        completionPercentage: controller2.audioGroups!
+                            .elementAt(i)
+                            .completionRate
                             .toDouble(), // Have this be updated from firebase instead of local
                         // controller2.audioGroup!.completionRate.toDouble(),
-                        audioGroup: controller2.audioGroup),
+                        audioGroup: controller2.audioGroups?.elementAt(i)),
                     const SizedBox(height: 30),
                   ],
                 ),

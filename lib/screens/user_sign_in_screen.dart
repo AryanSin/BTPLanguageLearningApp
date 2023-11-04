@@ -242,8 +242,7 @@ class _SignInPageState extends State<SignInPage> {
             children: [
               SquareTile(
                   imagePath: 'lib/images/google.png',
-                  onTap: () =>
-                      {AuthController().signInWithGoogle(), widget.onTap!()}),
+                  onTap: () => {AuthController().signInWithGoogle()}),
             ],
           ),
           const SizedBox(height: 60),

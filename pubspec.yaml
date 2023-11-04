@@ -56,7 +56,7 @@ dependencies:
   alert_dialog_box: ^0.0.2
   google_sign_in: ^6.1.5
   cloud_firestore: ^4.9.3
-  logger: ^2.0.2+1
+  logger: ^1.4.0
   get_storage: ^2.1.1
   firebase_database: ^10.3.2
   firebase_storage: ^11.4.0

@@ -45,8 +45,8 @@ class WordsGroup extends StatefulWidget {
   _WordsGroupState createState() => _WordsGroupState();
 
   double calulateCompletionRate(totalScore) {
-    if (controller2.audioGroup?.audios.isNotEmpty == true) {
-      return totalScore / (controller2.audioGroup!.audios.length * 100);
+    if (controller2.audioGroups != null) {
+      return totalScore / (controller2.audioGroups!.length * 100);
     } else {
       return 0;
     }
@@ -565,7 +565,7 @@ class _SecondScreenState extends State<SecondScreen> {
             // ),
             ElevatedButton(
               onPressed: (() {
-                if (!isRecorded) {
+                if (isRecorded) {
                   fetchRandomScore();
                 }
               }),
