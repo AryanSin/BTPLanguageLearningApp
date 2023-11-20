@@ -22,6 +22,16 @@ class AuthController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   GoogleSignIn googleSign = GoogleSignIn();
 
+  void updateScore(int score) {
+    int points = (myStorage.read('points').toInt());
+    points += score;
+    myStorage.write('points', points);
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(myStorage.read('userUID'))
+        .update({'points': points});
+  }
+
   bool userIsLoggedIn() {
     if (myStorage.read('userEmail') != null) {
       return true;
@@ -55,8 +65,9 @@ class AuthController extends GetxController {
           .get()
           .then((value) {
         if (value.docs.isNotEmpty) {
-          myStorage.write('userName', value.docs[0]['userName']);
+          myStorage.write('userName', value.docs[0]['username']);
           myStorage.write('userPhotoURL', value.docs[0]['photoURL']);
+          myStorage.write('points', value.docs[0]['points']);
         }
       });
 
@@ -73,6 +84,8 @@ class AuthController extends GetxController {
 
   void signUp(String userEmail, String userPassword, String userName) async {
     try {
+      QuerySnapshot defaults =
+          await FirebaseFirestore.instance.collection('defaultValues').get();
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userEmail, password: userPassword);
       await FirebaseAuth.instance
@@ -81,14 +94,24 @@ class AuthController extends GetxController {
       myStorage.write('userEmail', userEmail);
       myStorage.write('userUID', user?.uid);
       myStorage.write('userName', userName);
-      myStorage.write('userPhotoURL',
-          'https://firebasestorage.googleapis.com/v0/b/lingo-52cac.appspot.com/o/Screenshot%202023-01-28%20at%2000-01-38%20Free%20Logo%20Maker%20-%20Create%20a%20Logo%20in%20Seconds%20-%20Shopify.png?alt=media&token=c1cc393d-5a2a-41e0-9a28-c36b44ecbad0');
+      // read points default values from the firebase points datafield in defaultValues collection
+      FirebaseFirestore.instance
+          .collection('defaultPoints')
+          .get()
+          .then((value) {
+        if (value.docs.isNotEmpty) {
+          myStorage.write('userPhotoURL', value.docs[0]['photoURL']);
+          myStorage.write('points', value.docs[0]['points']);
+        }
+      });
+
       FirebaseFirestore.instance.collection('Users').doc(user?.uid).set({
         "username": userName,
         "email": userEmail,
         "uid": user?.uid,
         "photoURL":
-            "https://firebasestorage.googleapis.com/v0/b/lingo-52cac.appspot.com/o/Screenshot%202023-01-28%20at%2000-01-38%20Free%20Logo%20Maker%20-%20Create%20a%20Logo%20in%20Seconds%20-%20Shopify.png?alt=media&token=c1cc393d-5a2a-41e0-9a28-c36b44ecbad0",
+            myStorage.read('userPhotoURL') ?? defaults.docs[0]['photoURL'],
+        "points": myStorage.read('points') ?? defaults.docs[0]['points'],
       });
 
       Get.offAll(() => const HomePage());
@@ -129,6 +152,23 @@ class AuthController extends GetxController {
         log("userEmail : ${user?.email.toString()}");
         log("userPhotoURL : ${user?.photoURL.toString()}");
         log("userUID : ${user?.uid.toString()}");
+        QuerySnapshot defaults =
+            await FirebaseFirestore.instance.collection('defaultValues').get();
+        FirebaseFirestore.instance
+            .collection('Users')
+            .where('email', isEqualTo: user?.email)
+            .get()
+            .then((value) {
+          if (value.docs.isNotEmpty) {
+            myStorage.write('userName', value.docs[0]['username']);
+            myStorage.write('userPhotoURL',
+                value.docs[0]['photoURL'] ?? defaults.docs[0]['photoURL']);
+            myStorage.write('points',
+                value.docs[0]['points'] ?? defaults.docs[0]['points']);
+          }
+        });
+        log("User name is ${myStorage.read('userName').toString()}");
+        log("User points : ${myStorage.read('points')}");
 
         // var response = await firebaseFirestore
         //     .collection('Users')
@@ -145,8 +185,11 @@ class AuthController extends GetxController {
           "email": user?.email,
           "uid": user?.uid,
           "photoURL": user?.photoURL,
+          "points": myStorage.read('points') ?? 50,
         });
+
         log("LOG 3 $user");
+
         if (user != null) {
           Get.offAll(() => const HomePage());
         }

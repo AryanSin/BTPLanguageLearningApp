@@ -51,7 +51,7 @@ class UserSettingScreen extends StatelessWidget {
                 // crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: passwordReset,
+                    onTap: null,
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(color: Colors.grey),
@@ -77,6 +77,16 @@ class UserSettingScreen extends StatelessWidget {
                     height: getProportionHeight(70),
                   ),
                   ImageUploader(),
+                  SizedBox(
+                    height: getProportionHeight(40),
+                  ),
+                  GestureDetector(
+                    onTap: () => AuthController().signOut(),
+                    child: const Text(
+                      'Sign Out',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  )
                 ],
               ),
             ],

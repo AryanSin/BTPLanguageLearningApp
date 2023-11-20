@@ -52,11 +52,8 @@ class DataUploader extends GetxController {
           "groupDescription": paper.groupDescription,
           "unlockPrice": paper.unlockPrice,
           "skipPrice": paper.skipPrice,
-          "completionRate": paper.completionRate,
-          "score": paper.score,
           "difficulty": paper.difficulty,
-          "isUnlocked": paper.isUnlocked,
-          "isSkipped": paper.isSkipped,
+          "points": paper.points,
           "length": paper.audios.length,
         });
 

@@ -1,6 +1,7 @@
 // import 'package:get/get.dart';
 import 'dart:convert';
 
+import 'package:btp/references/references.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,9 @@ class DataReader extends GetxController {
   }
 
   Future<List<AudioGroup>> readData() async {
+    wordGroupsRF.get().then((value) {
+      print(value.docs[0].data());
+    });
     final mainifestContent = await DefaultAssetBundle.of(Get.context!)
         .loadString("AssetManifest.json");
     final Map<String, dynamic> manifestMap = json.decode(mainifestContent);

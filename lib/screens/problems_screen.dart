@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:btp/bindings/initial_bindings.dart';
 import 'package:btp/configs/size.dart';
 import 'package:btp/controllers/converter.dart';
+import 'package:btp/controllers/word_groups_controller.dart';
 import 'package:btp/widgets/daily_login_mini.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/text_with_back_color.dart';
@@ -25,6 +26,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   Widget? w;
   @override
   Widget build(BuildContext context) {
+    WordGroupsController _wordGroupsController = Get.find();
     return Scaffold(
       // appBar: AppBar(),
       backgroundColor: const Color.fromARGB(255, 11, 10, 54),
@@ -47,16 +49,25 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                     WordsGroup(
                         height: 184.41,
                         width: 280,
-                        unlocked: (i % 2 == 1) ? true : false,
-                        liked: (i % 2 == 0) ? true : false,
-                        Details:
-                            "${controller2.audioGroups?.elementAt(i).groupName}",
-                        completionPercentage: controller2.audioGroups!
+                        difficulty: _wordGroupsController.allPapers!
                             .elementAt(i)
-                            .completionRate
+                            .difficulty
+                            .toDouble(),
+                        unlocked: _wordGroupsController.allPapers!
+                            .elementAt(i)
+                            .isUnlocked,
+                        liked: _wordGroupsController.allPapers!
+                            .elementAt(i)
+                            .isFavorite,
+                        Details:
+                            "${_wordGroupsController.allPapers?.elementAt(i).groupName}",
+                        completionPercentage: _wordGroupsController.allPapers!
+                            .elementAt(i)
+                            .score
                             .toDouble(), // Have this be updated from firebase instead of local
-                        // controller2.audioGroup!.completionRate.toDouble(),
-                        audioGroup: controller2.audioGroups?.elementAt(i)),
+                        // _wordGroupsController.allPapers.!.score.toDouble(),
+                        audioGroup:
+                            _wordGroupsController.allPapers?.elementAt(i)),
                     const SizedBox(height: 30),
                   ],
                 ),

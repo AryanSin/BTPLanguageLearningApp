@@ -6,16 +6,10 @@
             "groupName" : "Group 1",
             "groupDescription" : "Group 1",
 
-            "unlockPrice" : 0,
-            "skipPrice" : 0,
-
-            "completionRate": 20,
-            "score": 0,
+            "unlockPrice" : 10,
+            "skipPrice" : 20,
             "difficulty":50,
-
-            "isUnlocked": false,
-            "isSkipped": false,
-            "isFavorite": false,
+            "points" : 25,
 
             "audios" : [
                 {
@@ -50,16 +44,10 @@
             "groupName" : "Group 2",
             "groupDescription" : "Group 2",
 
-            "unlockPrice" : 0,
-            "skipPrice" : 0,
-
-            "completionRate": 20,
-            "score": 0,
+            "unlockPrice" : 10,
+            "skipPrice" : 20,
             "difficulty":10,
-
-            "isUnlocked": false,
-            "isSkipped": false,
-            "isFavorite": false,
+            "points" : 25,
 
             "audios" : [
                 {
@@ -94,16 +82,10 @@
             "groupName" : "Group 3",
             "groupDescription" : "Group 3",
 
-            "unlockPrice" : 0,
-            "skipPrice" : 0,
-
-            "completionRate": 20,
-            "score": 0,
+            "unlockPrice" : 25,
+            "skipPrice" : 50,
             "difficulty":90,
-
-            "isUnlocked": false,
-            "isSkipped": false,
-            "isFavorite": false,
+            "points" : 45,
 
             "audios":[
                 {
@@ -138,16 +120,10 @@
             "groupName" : "Group 4",
             "groupDescription" : "Group 4",
 
-            "unlockPrice" : 0,
-            "skipPrice" : 0,
-
-            "completionRate": 20,
-            "score": 0,
+            "unlockPrice" : 20,
+            "skipPrice" : 40,
             "difficulty":63,
-
-            "isUnlocked": false,
-            "isSkipped": false,
-            "isFavorite": false,
+            "points" : 45,
 
             "audios":[
                 {

@@ -66,8 +66,10 @@ class _HomePageState extends State<HomePage> {
           appBarBuilder: (context) {
             return AppBar(
               backgroundColor: Color.fromARGB(255, 14, 18, 22),
-              title: Text(_pageNames[selectedPage]),
-              actions: [
+              // ignore: prefer_interpolation_to_compose_strings
+              title: Text("${_pageNames[selectedPage]}" +
+                  AuthController().myStorage.read('points').toString()),
+              actions: const [
                 AppBarSearchButton(),
                 // or
                 // IconButton(onPressed: AppBarWithSearchSwitch.of(context)?startSearch, icon: Icon(Icons.search)),

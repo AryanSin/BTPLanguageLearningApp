@@ -50,13 +50,13 @@ class AudioGroup {
   int unlockPrice;
   int skipPrice;
 
-  int completionRate;
-  int score;
+  int score = 0;
+  int points = 0;
   int difficulty;
 
-  bool isUnlocked;
-  bool isSkipped;
-  bool isFavorite;
+  bool isUnlocked = false;
+  bool isSkipped = false;
+  bool isFavorite = false;
 
   List<Audios> audios;
 
@@ -65,12 +65,8 @@ class AudioGroup {
       required this.groupDescription,
       required this.unlockPrice,
       required this.skipPrice,
-      required this.completionRate,
-      required this.score,
       required this.difficulty,
-      required this.isUnlocked,
-      required this.isSkipped,
-      required this.isFavorite,
+      required this.points,
       required this.audios});
 
   AudioGroup.fromJson(Map<String, dynamic> json)
@@ -78,12 +74,8 @@ class AudioGroup {
         groupDescription = json['groupDescription'],
         unlockPrice = json['unlockPrice'],
         skipPrice = json['skipPrice'],
-        completionRate = json['completionRate'],
-        score = json['score'],
         difficulty = json['difficulty'],
-        isUnlocked = json['isUnlocked'],
-        isSkipped = json['isSkipped'],
-        isFavorite = json['isFavorite'],
+        points = json['points'],
         audios = (json['audios'] as List)
             .map((dynamic e) => Audios.fromJson(e as Map<String, dynamic>))
             .toList();
@@ -93,27 +85,19 @@ class AudioGroup {
         groupDescription = json['groupDescription'] as String,
         unlockPrice = json['unlockPrice'] as int,
         skipPrice = json['skipPrice'] as int,
-        completionRate = json['completionRate'] as int,
-        score = json['score'] as int,
         difficulty = json['difficulty'] as int,
-        isUnlocked = json['isUnlocked'] as bool,
-        isSkipped = json['isSkipped'] as bool,
-        isFavorite = json['isFavorite'] as bool,
+        points = json['points'] as int,
         audios = [];
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['groupName'] = this.groupName;
-    data['groupDescription'] = this.groupDescription;
-    data['unlockPrice'] = this.unlockPrice;
-    data['skipPrice'] = this.skipPrice;
-    data['completionRate'] = this.completionRate;
-    data['score'] = this.score;
-    data['difficulty'] = this.difficulty;
-    data['isUnlocked'] = this.isUnlocked;
-    data['isSkipped'] = this.isSkipped;
-    data['isFavorite'] = this.isFavorite;
-    data['audios'] = this.audios.map((e) => e.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['groupName'] = groupName;
+    data['groupDescription'] = groupDescription;
+    data['unlockPrice'] = unlockPrice;
+    data['skipPrice'] = skipPrice;
+    data['difficulty'] = difficulty;
+    data['points'] = points;
+    data['audios'] = audios.map((e) => e.toJson()).toList();
     return data;
   }
 }

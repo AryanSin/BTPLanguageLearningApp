@@ -7,12 +7,15 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 // import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btp/configs/size.dart';
+import 'package:btp/controllers/auth_controller.dart';
 import 'package:btp/controllers/converter.dart';
 import 'package:btp/controllers/dataReader.dart';
+import 'package:btp/controllers/word_groups_controller.dart';
 import 'package:btp/widgets/button.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/text_with_back_color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -28,9 +31,10 @@ class WordsGroup extends StatefulWidget {
   final double width;
   final bool liked;
   final bool unlocked;
+  final double difficulty;
   final AudioGroup? audioGroup;
 
-  const WordsGroup({
+  WordsGroup({
     Key? key,
     this.Details = "Details\nSecondary titles",
     this.completionPercentage = 50,
@@ -38,15 +42,16 @@ class WordsGroup extends StatefulWidget {
     this.unlocked = false,
     this.height = 184.41,
     this.width = 280,
+    this.difficulty = 65.0,
     required this.audioGroup,
   }) : super(key: key);
 
   @override
   _WordsGroupState createState() => _WordsGroupState();
-
-  double calulateCompletionRate(totalScore) {
-    if (controller2.audioGroups != null) {
-      return totalScore / (controller2.audioGroups!.length * 100);
+  WordGroupsController _wordGroupsController = Get.find();
+  double calulatescore(totalScore) {
+    if (_wordGroupsController.allPapers != null) {
+      return totalScore / (_wordGroupsController.allPapers.length * 100);
     } else {
       return 0;
     }
@@ -61,6 +66,7 @@ class _WordsGroupState extends State<WordsGroup> {
   late bool liked = widget.liked;
   late bool unlocked = widget.unlocked;
   late double completionPercentage = widget.completionPercentage;
+  late double difficulty = widget.difficulty;
 
   void moveToNextWord() {
     setState(() {
@@ -246,8 +252,7 @@ class _WordsGroupState extends State<WordsGroup> {
               animation: true,
               lineHeight: getProportionHeight(11.51),
               animationDuration: 2000,
-              percent:
-                  widget.calulateCompletionRate(widget.completionPercentage),
+              percent: (widget.difficulty) / 100,
               // completionPercentage / 100.0,
               barRadius: Radius.circular(getProportionWidth(4)),
               progressColor: Color.fromARGB(255, 116, 69, 255),
@@ -477,6 +482,7 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   void _sendDataToTotalScoreScreen(BuildContext context) {
+    AuthController().updateScore(widget.audioGroup!.points);
     Navigator.push(
       context,
       MaterialPageRoute(
