@@ -445,7 +445,8 @@ class _SecondScreenState extends State<SecondScreen> {
   bool isRecorderReady = false;
   bool isSubmitted = false;
   bool isRecorded = false;
-
+  String audioBase64 = "";
+  int randomInt = 0;
   @override
   void initState() {
     super.initState();
@@ -477,17 +478,42 @@ class _SecondScreenState extends State<SecondScreen> {
 
   Future<void> fetchRandomScore() async {
     // Simulate fetching the score, e.g., from an API call
-    await Future.delayed(Duration(seconds: 1));
-    int randomScore = Random().nextInt(100);
+    print("fetching score");
+    if (audioBase64.isNotEmpty) {
+      print("Audio:" + audioBase64);
+      try {
+        final response = await http.post(
+          Uri.parse(
+              'https://bt-flask-chiranjeevi.onrender.com/process_audio'), // Replace with the actual API endpoint
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({'audio': audioBase64}),
+        );
 
+        if (response.statusCode == 200) {
+          // Successfully sent the audio data to the server
+          final responseData = json.decode(response.body);
+          print('Response Data: $responseData');
+
+          // You can access the response data as needed. For example, if the response is JSON:
+          randomInt = responseData['random_int'];
+          print('Random Integer: $randomInt');
+        } else {
+          // Handle HTTP error
+          print('HTTP Error: ${response.statusCode}');
+        }
+      } catch (e) {
+        // Handle any exceptions (e.g., network errors)
+        print('Exception: $e');
+      }
+      setState(() {
+        widget.score = randomInt.toDouble();
+      });
+      print("Score: ${widget.score}");
+      print("Total Score: ${widget.totalScore}");
+      isSubmitted = true;
+    }
     // Update the widget's score and trigger a rebuild
     // widget.totalScore += randomScore;
-    setState(() {
-      widget.score = randomScore.toDouble();
-    });
-    print("Score: ${widget.score}");
-    print("Total Score: ${widget.totalScore}");
-    isSubmitted = true;
   }
 
   Future<void> stop() async {
@@ -501,33 +527,8 @@ class _SecondScreenState extends State<SecondScreen> {
     if (res != null) {
       final file = File(res);
       final audioFile = await file.readAsBytes();
-      final audioBase64 = base64Encode(audioFile);
+      audioBase64 = base64Encode(audioFile);
       print("Audio:" + audioBase64);
-      try {
-        final response = await http.post(
-          Uri.parse(
-              'http://127.0.0.1:5000/process_audio'), // Replace with the actual API endpoint
-          body: {
-            'audio': audioBase64,
-          },
-        );
-
-        if (response.statusCode == 200) {
-          // Successfully sent the audio data to the server
-          final responseData = json.decode(response.body);
-          print('Response Data: $responseData');
-
-          // You can access the response data as needed. For example, if the response is JSON:
-          final randomInt = responseData['random_int'];
-          print('Random Integer: $randomInt');
-        } else {
-          // Handle HTTP error
-          print('HTTP Error: ${response.statusCode}');
-        }
-      } catch (e) {
-        // Handle any exceptions (e.g., network errors)
-        print('Exception: $e');
-      }
     }
     // Fetch a random score or perform other actions here
     // fetchRandomScore();

@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ((userDoc.data() as Map<String, dynamic>)['numDaysLoggedIn'] ?? 0);
         numDaysLoggedIn++;
         await userDocRef.update({'numDaysLoggedIn': numDaysLoggedIn});
-
+        await userDocRef.update({'collectedDailyReward': false});
         while (loginDates.length >= 32) {
           loginDates.removeAt(0);
         }

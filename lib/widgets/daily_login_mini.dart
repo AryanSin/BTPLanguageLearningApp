@@ -18,56 +18,21 @@ class _DailyLoginMiniState extends State<DailyLoginMini> {
   int month = DateTime.now().month;
   int day = DateTime.now().day;
   int year = DateTime.now().year;
-  int numDays = 0;
   List<int> days = [];
 
   _DailyLoginMiniState() {
-    switch (month) {
-      case 1:
-        numDays = 31;
-        break;
-      case 2:
-        numDays = 28;
-        if (year % 4 == 0) numDays = 29;
-        break;
-      case 3:
-        numDays = 31;
-        break;
-      case 4:
-        numDays = 30;
-        break;
-      case 5:
-        numDays = 31;
-        break;
-      case 6:
-        numDays = 30;
-        break;
-      case 7:
-        numDays = 31;
-        break;
-      case 8:
-        numDays = 31;
-        break;
-      case 9:
-        numDays = 30;
-        break;
-      case 10:
-        numDays = 31;
-        break;
-      case 11:
-        numDays = 30;
-        break;
-      case 12:
-        numDays = 31;
-        break;
-    }
+    // Calculate the start date of the current week (Monday)
+    DateTime startDate =
+        DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1));
 
     for (var d = 0; d < 7; d++) {
-      if (day + d <= numDays) {
-        days.add(day + d);
+      if (startDate.day + d <=
+          DateTime(startDate.year, startDate.month + 1, 0).day) {
+        days.add(startDate.day + d);
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return PopupItemLauncher(
