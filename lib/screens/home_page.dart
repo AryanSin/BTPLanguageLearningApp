@@ -6,6 +6,7 @@ import 'package:btp/screens/home_screen.dart';
 import 'package:btp/screens/problems_screen.dart';
 import 'package:btp/screens/settings_screen.dart';
 import 'package:btp/screens/login_or_register_page.dart';
+import 'package:btp/widgets/square_tile.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -67,8 +68,38 @@ class _HomePageState extends State<HomePage> {
             return AppBar(
               backgroundColor: Color.fromARGB(255, 14, 18, 22),
               // ignore: prefer_interpolation_to_compose_strings
-              title: Text("${_pageNames[selectedPage]}" +
-                  AuthController().myStorage.read('points').toString()),
+              title: SizedBox(
+                width: getProportionWidth(300),
+                child: Stack(
+                  children: [
+                    Text(_pageNames[selectedPage]),
+                    Positioned(
+                      right: 0,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/1291961 4clear.png",
+                            height: getProportionHeight(10),
+                          ),
+                          SizedBox(width: getProportionWidth(5)),
+                          Text(
+                              AuthController()
+                                  .myStorage
+                                  .read('points')
+                                  .toString(),
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 164, 113, 246),
+                                fontSize: getProportionWidth(12),
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+              // add icon here for points
+
               actions: const [
                 AppBarSearchButton(),
                 // or

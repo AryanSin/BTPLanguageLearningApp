@@ -49,25 +49,26 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                     WordsGroup(
                         height: 184.41,
                         width: 280,
-                        difficulty: _wordGroupsController.allPapers!
+                        difficulty: _wordGroupsController.allPapers
                             .elementAt(i)
                             .difficulty
                             .toDouble(),
-                        unlocked: _wordGroupsController.allPapers!
+                        unlocked: _wordGroupsController.allPapers
                             .elementAt(i)
                             .isUnlocked,
-                        liked: _wordGroupsController.allPapers!
+                        liked: _wordGroupsController.allPapers
                             .elementAt(i)
                             .isFavorite,
-                        Details:
-                            "${_wordGroupsController.allPapers?.elementAt(i).groupName}",
-                        completionPercentage: _wordGroupsController.allPapers!
+                        Details: _wordGroupsController.allPapers
+                            .elementAt(i)
+                            .groupName,
+                        completionPercentage: _wordGroupsController.allPapers
                             .elementAt(i)
                             .score
                             .toDouble(), // Have this be updated from firebase instead of local
                         // _wordGroupsController.allPapers.!.score.toDouble(),
                         audioGroup:
-                            _wordGroupsController.allPapers?.elementAt(i)),
+                            _wordGroupsController.allPapers.elementAt(i)),
                     const SizedBox(height: 30),
                   ],
                 ),

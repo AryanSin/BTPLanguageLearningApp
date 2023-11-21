@@ -24,18 +24,31 @@ class WordGroupsController extends GetxController {
         print("1is ${element.data()}");
         allPapers.add(AudioGroup.fromSnapshot(element));
       });
+
+      print("data3 recieved is ${allPapers[1].groupName}");
       final paperList =
           data.docs.map((paper) => AudioGroup.fromSnapshot(paper)).toList();
       allPapers.assignAll(paperList);
       print("data recieved is ${paperList[0].groupName}");
       print("data2 recieved is ${allPapers[0].groupName}");
 
-      // for (var i = 0; i < allPapers.length; i++) {
-      //   FirebaseFirestore.instance
-      //       .collection('Users')
-      //       .doc(AuthController().myStorage.read('userUID'))
-      //       .collection('UserWords');
-      // }
+      for (var i = 0; i < allPapers.length; i++) {
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(AuthController().myStorage.read('userUID'))
+            .collection('UserWords')
+            .doc(allPapers[i].groupName)
+            .get()
+            .then((value) {
+          if (value.exists) {
+            allPapers[i].isUnlocked = value['isUnlocked'];
+            allPapers[i].isFavorite = value['isFavorite'];
+            allPapers[i].isCompleted = value['isCompleted'];
+            allPapers[i].score = value['score'];
+          }
+        });
+      }
+
       // print();
       for (var paper in paperList) {
         print(2);

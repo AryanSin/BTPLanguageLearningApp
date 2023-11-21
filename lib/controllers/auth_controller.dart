@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:btp/controllers/converter.dart';
 import 'package:btp/screens/home_page.dart';
 import 'package:btp/screens/login_or_register_page.dart';
 import 'package:btp/screens/user_settings_screen.dart';
@@ -21,6 +22,20 @@ class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   GoogleSignIn googleSign = GoogleSignIn();
+
+  void updateGroup(AudioGroup? audioGroup) {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AuthController().myStorage.read('userUID'))
+        .collection('UserWords')
+        .doc(audioGroup?.groupName)
+        .set({
+      "isUnlocked": audioGroup?.isUnlocked,
+      "isFavorite": audioGroup?.isFavorite,
+      "isCompleted": audioGroup?.isCompleted,
+      "score": audioGroup?.score,
+    });
+  }
 
   void updateScore(int score) {
     int points = (myStorage.read('points').toInt());
@@ -96,7 +111,7 @@ class AuthController extends GetxController {
       myStorage.write('userName', userName);
       // read points default values from the firebase points datafield in defaultValues collection
       FirebaseFirestore.instance
-          .collection('defaultPoints')
+          .collection('defaultsValues')
           .get()
           .then((value) {
         if (value.docs.isNotEmpty) {

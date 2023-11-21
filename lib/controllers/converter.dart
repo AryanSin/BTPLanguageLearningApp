@@ -39,6 +39,11 @@ class Audios {
         word = json['word'],
         syllable = json['syllables'];
 
+  Audios.fromSnapshot(DocumentSnapshot<Object?> json)
+      : audioName = json['audioName'] as String,
+        word = json['word'] as String,
+        syllable = json['syllables'] as String;
+
   Map<String, dynamic> toJson() =>
       {'audioName': audioName, 'word': word, 'syllables': syllable};
 }
@@ -55,7 +60,7 @@ class AudioGroup {
   int difficulty;
 
   bool isUnlocked = false;
-  bool isSkipped = false;
+  bool isCompleted = false;
   bool isFavorite = false;
 
   List<Audios> audios;
@@ -87,7 +92,14 @@ class AudioGroup {
         skipPrice = json['skipPrice'] as int,
         difficulty = json['difficulty'] as int,
         points = json['points'] as int,
-        audios = [];
+        audios = [] {
+    json.reference.collection('audios').get().then((audioCollection) {
+      audioCollection.docs.forEach((audio) {
+        audios.add(Audios.fromSnapshot(audio));
+      });
+      print(audios[0].audioName);
+    });
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

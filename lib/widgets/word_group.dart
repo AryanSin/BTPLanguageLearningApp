@@ -14,6 +14,7 @@ import 'package:btp/controllers/word_groups_controller.dart';
 import 'package:btp/widgets/button.dart';
 import 'package:btp/widgets/icon_text.dart';
 import 'package:btp/widgets/text_with_back_color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
@@ -49,13 +50,6 @@ class WordsGroup extends StatefulWidget {
   @override
   _WordsGroupState createState() => _WordsGroupState();
   WordGroupsController _wordGroupsController = Get.find();
-  double calulatescore(totalScore) {
-    if (_wordGroupsController.allPapers != null) {
-      return totalScore / (_wordGroupsController.allPapers.length * 100);
-    } else {
-      return 0;
-    }
-  }
 }
 
 class _WordsGroupState extends State<WordsGroup> {
@@ -73,6 +67,91 @@ class _WordsGroupState extends State<WordsGroup> {
       currentWordIndex =
           (currentWordIndex + 1) % widget.audioGroup!.audios.length;
     });
+  }
+
+  void _sendDataToSecondScreen(BuildContext context) {
+    if (currentWordIndex != 0) {
+      Timer(Duration(seconds: 2), () {
+        setState(() {
+          currentWordIndex =
+              (currentWordIndex + 1) % widget.audioGroup!.audios.length;
+        });
+      });
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecondScreen(
+            currentWordIndex: currentWordIndex.toInt(),
+            audioGroup: widget.audioGroup,
+            totalScore: totalScore,
+            audioFile: widget.audioGroup!.audios[currentWordIndex.toInt()],
+          ),
+        ));
+  }
+
+  void unlockButton() {
+    if (unlocked) {
+      // Item is already unlocked, perform your action
+      _sendDataToSecondScreen(context);
+      print("Unlocked");
+      // Add your logic here to perform the desired action when the item is already unlocked.
+    } else {
+      // Item is locked, show unlock popup
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          int _unlockPrice = widget.audioGroup!.unlockPrice;
+          int _userCoins = AuthController().myStorage.read('points').toInt();
+          return AlertDialog(
+            title: Text('Unlock Item'),
+            content: _userCoins >= _unlockPrice
+                ? Text(
+                    'Do you want to unlock this item for ${_unlockPrice} coins?')
+                : Text(
+                    'You need ${_unlockPrice - _userCoins} more coins to unlock this item.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Confirm'),
+                onPressed: () {
+                  if (_userCoins >= _unlockPrice) {
+                    // Subtract coins and unlock the item
+                    AuthController().updateScore(-_unlockPrice);
+                    setState(() {
+                      unlocked = true;
+                    });
+                    widget.audioGroup!.isUnlocked = true;
+                    AuthController().updateGroup(widget.audioGroup);
+                    print('Item unlocked. Performing action...');
+                    // Add your logic here to perform the desired action after unlocking.
+                  } else {
+                    print('Not enough coins to unlock.');
+
+                    // Add your logic here to inform the user they need more coins.
+                  }
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future<bool?> likeButton(bool currentLiked) async {
+    widget.audioGroup?.isFavorite = !(widget.audioGroup!.isFavorite);
+    AuthController().updateGroup(widget.audioGroup);
+    setState(() {
+      liked = !currentLiked;
+    });
+    return liked;
   }
 
   _WordsGroupState();
@@ -164,16 +243,7 @@ class _WordsGroupState extends State<WordsGroup> {
               child: Align(
                 alignment: Alignment.center,
                 child: InkWell(
-                  onTap: () {
-                    if (unlocked) {
-                      _sendDataToSecondScreen(context);
-                      print("Unlocked");
-                    } else {
-                      setState(() {
-                        unlocked = true;
-                      });
-                    }
-                  },
+                  onTap: unlockButton,
                   child: Text(
                     unlocked ? "Attempt" : "Unlock",
                     textAlign: TextAlign.center,
@@ -203,13 +273,15 @@ class _WordsGroupState extends State<WordsGroup> {
                     )),
                 child: Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    "Skip",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: getProportionHeight(14.0),
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
+                  child: InkWell(
+                    child: Text(
+                      "Skip",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: getProportionHeight(14.0),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ),
@@ -234,6 +306,7 @@ class _WordsGroupState extends State<WordsGroup> {
                   alignment: Alignment.center,
                   child: Center(
                     child: LikeButton(
+                      onTap: likeButton,
                       isLiked: liked,
                       size: getProportionHeight(16),
                     ),
@@ -341,27 +414,6 @@ class _WordsGroupState extends State<WordsGroup> {
         ],
       ),
     );
-  }
-
-  void _sendDataToSecondScreen(BuildContext context) {
-    if (currentWordIndex != 0) {
-      Timer(Duration(seconds: 2), () {
-        setState(() {
-          currentWordIndex =
-              (currentWordIndex + 1) % widget.audioGroup!.audios.length;
-        });
-      });
-    }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SecondScreen(
-            currentWordIndex: currentWordIndex.toInt(),
-            audioGroup: widget.audioGroup,
-            totalScore: totalScore,
-            audioFile: widget.audioGroup!.audios[currentWordIndex.toInt()],
-          ),
-        ));
   }
 }
 
@@ -481,16 +533,82 @@ class _SecondScreenState extends State<SecondScreen> {
     // fetchRandomScore();
   }
 
+  double calculateScore(totalScore) {
+    if (widget.audioGroup?.audios.length != null) {
+      return totalScore / (widget.audioGroup?.audios.length);
+    } else {
+      return 0;
+    }
+  }
+
   void _sendDataToTotalScoreScreen(BuildContext context) {
-    AuthController().updateScore(widget.audioGroup!.points);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TotalScoreScreen(
-          totalScore: widget.totalScore,
-        ),
-      ),
-    );
+    double scr = calculateScore(widget.totalScore);
+    double def = 50;
+
+    FirebaseFirestore.instance
+        .collection('defaultsValues')
+        .doc('defaultValues')
+        .get()
+        .then((value) {
+      def = value['minScoreNeeded'].toDouble();
+      print("def is ${value['minScoreNeeded']}");
+    });
+
+    print("scr and def are $scr and $def");
+
+    if (!widget.audioGroup!.isCompleted) {
+      if (scr >= def) {
+        widget.audioGroup!.isCompleted = true;
+        widget.audioGroup!.score = scr.toInt();
+        AuthController().updateScore(widget.audioGroup!.points);
+        AuthController().updateGroup(widget.audioGroup);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TotalScoreScreen(
+              totalScore: scr,
+              audioGroup: widget.audioGroup,
+            ),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FailureScreen(
+              totalScore: scr,
+              audioGroup: widget.audioGroup,
+            ),
+          ),
+        );
+      }
+    } else {
+      if (scr > def) {
+        if (scr > widget.audioGroup!.score) {
+          widget.audioGroup!.score = scr.toInt();
+          AuthController().updateGroup(widget.audioGroup);
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TotalScoreScreen(
+              totalScore: scr,
+              audioGroup: widget.audioGroup,
+            ),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FailureScreen(
+              totalScore: scr,
+              audioGroup: widget.audioGroup,
+            ),
+          ),
+        );
+      }
+    }
   }
 
   void _NextWord(BuildContext context) {
@@ -723,10 +841,11 @@ class _SecondScreenState extends State<SecondScreen> {
 
 class TotalScoreScreen extends StatelessWidget {
   final double totalScore;
-
+  final AudioGroup? audioGroup;
   TotalScoreScreen({
     Key? key,
     required this.totalScore,
+    this.audioGroup,
   }) : super(key: key);
 
   @override
@@ -752,6 +871,80 @@ class TotalScoreScreen extends StatelessWidget {
               color: Color.fromARGB(255, 13, 17, 21),
               width: 300, // Increase the width of the total score widget
               height: 90, // Increase the height of the total score widget
+              textStyle: TextStyle(
+                fontSize: 24, // Increase the font size
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+                height:
+                    20), // Add some space between total score and finish button
+            ElevatedButton(
+              onPressed: (() {
+                Navigator.pop(context);
+              }),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 164, 113, 246)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(getProportionHeight(4)),
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all<Size>(
+                  Size(getProportionWidth(150), getProportionHeight(36)),
+                ),
+              ),
+              child: Text(
+                "Finish",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FailureScreen extends StatelessWidget {
+  final double totalScore;
+  final AudioGroup? audioGroup;
+  FailureScreen({
+    Key? key,
+    required this.totalScore,
+    this.audioGroup,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Total Score"),
+        backgroundColor:
+            Color.fromARGB(255, 11, 10, 54), // Change background color
+      ),
+      backgroundColor: Color.fromARGB(255, 11, 10, 54),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: getProportionHeight(300),
+              child: RiveAnimation.asset('assets/anim/dog_back_side.riv',
+                  fit: BoxFit.cover),
+            ),
+            TextWithBackColor(
+              text:
+                  "You need more points to clear the level. \nYour current Score is ${totalScore.toStringAsFixed(2)}",
+
+              color: Color.fromARGB(255, 13, 17, 21),
+              width: 330, // Increase the width of the total score widget
+              height: 100, // Increase the height of the total score widget
               textStyle: TextStyle(
                 fontSize: 24, // Increase the font size
                 color: Colors.white,
